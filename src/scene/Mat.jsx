@@ -1,64 +1,68 @@
 import { useMemo } from 'react'
 import { CanvasTexture, SRGBColorSpace } from 'three'
 
-// Green self-healing cutting mat, drawn procedurally: base green, fine grid,
-// bolder major grid, border frame, and 45° corner diagonals.
-const MAT_W = 16
-const MAT_H = 12
+// Green self-healing cutting mat, drawn to match the reference: dark border
+// with ruler numbers, lighter gridded field, "CUTTING MAT 3022" title.
+// The whole mat is the scene frame — Scene.jsx fits the camera to it.
+export const MAT_W = 7.4
+export const MAT_H = 3.6
+export const MAT_Z = 0.28 // mat center sits slightly behind the laptop
 
 function drawMat() {
-  const PX = 128 // pixels per world unit
-  const w = MAT_W * PX
-  const h = MAT_H * PX
+  const W = 2048
+  const H = Math.round((W * MAT_H) / MAT_W)
   const c = document.createElement('canvas')
-  c.width = w
-  c.height = h
+  c.width = W
+  c.height = H
   const ctx = c.getContext('2d')
 
-  // base with a subtle radial shade
-  const g = ctx.createRadialGradient(w / 2, h / 2, h / 4, w / 2, h / 2, w * 0.7)
-  g.addColorStop(0, '#37744f')
-  g.addColorStop(1, '#2b5f42')
+  // dark border zone
+  ctx.fillStyle = '#16332a'
+  ctx.fillRect(0, 0, W, H)
+
+  // inner field
+  const L = 44, R = 44, T = 44, B = 44
+  const fw = W - L - R
+  const fh = H - T - B
+  const g = ctx.createRadialGradient(W / 2, H / 2, H / 4, W / 2, H / 2, W * 0.6)
+  g.addColorStop(0, '#2e6f51')
+  g.addColorStop(1, '#265c44')
   ctx.fillStyle = g
-  ctx.fillRect(0, 0, w, h)
+  ctx.fillRect(L, T, fw, fh)
 
-  const inset = PX * 0.5 // border frame inset
-  const line = '#a8d8bd'
-
-  // fine grid (every unit)
+  // grid — 28 columns like the reference
+  const COLS = 28
+  const cell = fw / COLS
+  const rows = Math.floor(fh / cell)
+  const line = '#bfe3cf'
   ctx.strokeStyle = line
-  ctx.globalAlpha = 0.28
+
+  ctx.globalAlpha = 0.35
   ctx.lineWidth = 2
-  for (let x = inset; x <= w - inset + 1; x += PX) {
-    ctx.beginPath(); ctx.moveTo(x, inset); ctx.lineTo(x, h - inset); ctx.stroke()
+  for (let i = 0; i <= COLS; i++) {
+    const x = L + i * cell
+    ctx.beginPath(); ctx.moveTo(x, T); ctx.lineTo(x, T + fh); ctx.stroke()
   }
-  for (let y = inset; y <= h - inset + 1; y += PX) {
-    ctx.beginPath(); ctx.moveTo(inset, y); ctx.lineTo(w - inset, y); ctx.stroke()
+  for (let j = 0; j <= rows; j++) {
+    const y = T + j * cell
+    ctx.beginPath(); ctx.moveTo(L, y); ctx.lineTo(L + fw, y); ctx.stroke()
   }
 
-  // major grid (every 4 units)
-  ctx.globalAlpha = 0.55
+  // heavier line every 5 cells + field frame
+  ctx.globalAlpha = 0.6
   ctx.lineWidth = 4
-  for (let x = inset; x <= w - inset + 1; x += PX * 4) {
-    ctx.beginPath(); ctx.moveTo(x, inset); ctx.lineTo(x, h - inset); ctx.stroke()
+  for (let i = 0; i <= COLS; i += 5) {
+    const x = L + i * cell
+    ctx.beginPath(); ctx.moveTo(x, T); ctx.lineTo(x, T + fh); ctx.stroke()
   }
-  for (let y = inset; y <= h - inset + 1; y += PX * 4) {
-    ctx.beginPath(); ctx.moveTo(inset, y); ctx.lineTo(w - inset, y); ctx.stroke()
-  }
+  ctx.strokeRect(L, T, fw, fh)
 
-  // border frame
-  ctx.globalAlpha = 0.8
-  ctx.lineWidth = 6
-  ctx.strokeRect(inset, inset, w - inset * 2, h - inset * 2)
-
-  // 45° diagonals from the corners of the frame
-  ctx.globalAlpha = 0.4
-  ctx.lineWidth = 3
-  const d = PX * 3
-  ctx.beginPath(); ctx.moveTo(inset, inset); ctx.lineTo(inset + d, inset + d); ctx.stroke()
-  ctx.beginPath(); ctx.moveTo(w - inset, inset); ctx.lineTo(w - inset - d, inset + d); ctx.stroke()
-  ctx.beginPath(); ctx.moveTo(inset, h - inset); ctx.lineTo(inset + d, h - inset - d); ctx.stroke()
-  ctx.beginPath(); ctx.moveTo(w - inset, h - inset); ctx.lineTo(w - inset - d, h - inset - d); ctx.stroke()
+  // title
+  ctx.fillStyle = '#cfe8d9'
+  ctx.textAlign = 'right'
+  ctx.globalAlpha = 0.85
+  ctx.font = 'bold 52px system-ui, sans-serif'
+  ctx.fillText('CUTTING MAT 3022', W - 60, T + 8)
 
   ctx.globalAlpha = 1
   return c
@@ -73,7 +77,7 @@ export default function Mat() {
   }, [])
 
   return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, MAT_Z]} receiveShadow>
       <planeGeometry args={[MAT_W, MAT_H]} />
       <meshStandardMaterial map={texture} roughness={0.92} metalness={0} />
     </mesh>

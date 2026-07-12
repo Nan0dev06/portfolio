@@ -11,7 +11,7 @@ export default function App() {
   // times over the first second to cover slow layout / observer timing.
   useEffect(() => {
     const fire = () => window.dispatchEvent(new Event('resize'))
-    const timers = [0, 100, 300, 600].map((ms) => setTimeout(fire, ms))
+    const timers = [0, 100, 300, 600, 1500, 3000, 6000].map((ms) => setTimeout(fire, ms))
     return () => timers.forEach(clearTimeout)
   }, [])
 
@@ -19,7 +19,7 @@ export default function App() {
     <>
       <Canvas
         dpr={[1, 2]}
-        camera={{ position: [0, 6.2, 1.2], fov: 40 }}
+        camera={{ position: [0, 5.8, 0.6], fov: 40 }}
         onCreated={(state) => {
           if (import.meta.env.DEV) window.__r3f = state // dev-only debug handle
         }}

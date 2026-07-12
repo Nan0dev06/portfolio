@@ -4,15 +4,21 @@ import { ContactShadows } from '@react-three/drei'
 import { MathUtils, Vector3 } from 'three'
 import { useStore } from '../store'
 import Laptop from './Laptop.jsx'
-import Mat from './Mat.jsx'
+import Mat, { MAT_W, MAT_H, MAT_Z } from './Mat.jsx'
 import Props from './Props.jsx'
 
-// Camera keyframes: a top-down flat-lay over the desk while the laptop is
-// closed, then the head-on push-in to the screen once it opens.
-const OVERVIEW_POS = new Vector3(0, 6.2, 1.2)
-const OVERVIEW_LOOK = new Vector3(0, 0.15, -0.2)
+// Camera keyframes: a top-down flat-lay framing the WHOLE cutting mat while
+// the laptop is closed, then the head-on push-in to the screen once it opens.
+const FOV = 40
+const OVERVIEW_LOOK = new Vector3(0, 0, MAT_Z)
 const ENTERED_POS = new Vector3(0, 0.95, 1.75)
 const ENTERED_LOOK = new Vector3(0, 0.85, -0.35)
+
+// height at which the full mat fits the viewport (with a small margin)
+function overviewHeight(aspect) {
+  const halfTan = Math.tan(((FOV / 2) * Math.PI) / 180)
+  return Math.max(MAT_H / 2 / halfTan, MAT_W / 2 / (halfTan * aspect)) * 1.08
+}
 
 export default function Scene() {
   const { camera } = useThree()
@@ -20,9 +26,13 @@ export default function Scene() {
   const phase = useStore((s) => s.phase)
   const setEntered = useStore((s) => s.setEntered)
 
+  const overview = useRef(new Vector3())
+
   useFrame((_, dt) => {
     const active = phase !== 'closed'
-    const tp = active ? ENTERED_POS : OVERVIEW_POS
+    // responsive: recompute so the whole mat always fits the current viewport
+    overview.current.set(0, overviewHeight(camera.aspect), MAT_Z + 0.3)
+    const tp = active ? ENTERED_POS : overview.current
     const tl = active ? ENTERED_LOOK : OVERVIEW_LOOK
     const l = 2.5
 
