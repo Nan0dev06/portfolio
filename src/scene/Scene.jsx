@@ -7,9 +7,10 @@ import Laptop from './Laptop.jsx'
 import Mat from './Mat.jsx'
 import Props from './Props.jsx'
 
-// Camera keyframes: a 3/4 overview, and a head-on push-in to the screen.
-const OVERVIEW_POS = new Vector3(0, 2.4, 6)
-const OVERVIEW_LOOK = new Vector3(0, 0.5, 0)
+// Camera keyframes: a top-down flat-lay over the desk while the laptop is
+// closed, then the head-on push-in to the screen once it opens.
+const OVERVIEW_POS = new Vector3(0, 6.2, 1.2)
+const OVERVIEW_LOOK = new Vector3(0, 0.15, -0.2)
 const ENTERED_POS = new Vector3(0, 0.95, 1.75)
 const ENTERED_LOOK = new Vector3(0, 0.85, -0.35)
 

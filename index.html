@@ -6,6 +6,14 @@
     <title>portfolio</title>
   </head>
   <body>
+    <script>
+      // testing shim: with ?headless, drive rAF from timers so the app still
+      // runs when the tab is hidden (headless browser panes pause real rAF)
+      if (location.search.includes('headless')) {
+        window.requestAnimationFrame = (cb) => setTimeout(() => cb(performance.now()), 16)
+        window.cancelAnimationFrame = (id) => clearTimeout(id)
+      }
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

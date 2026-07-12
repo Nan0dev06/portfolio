@@ -1,4 +1,5 @@
 import { useStore } from '../store'
+import OS from '../os/OS.jsx'
 
 export default function Overlay() {
   const phase = useStore((s) => s.phase)
@@ -6,8 +7,9 @@ export default function Overlay() {
   return (
     <>
       {phase === 'closed' && <div className="hint">click the laptop</div>}
-      {/* main page — intentionally blank for now */}
-      <div className={`page ${phase === 'entered' ? 'show' : ''}`} />
+      <div className={`page ${phase === 'entered' ? 'show' : ''}`}>
+        {phase === 'entered' && <OS />}
+      </div>
     </>
   )
 }

@@ -17,7 +17,13 @@ export default function App() {
 
   return (
     <>
-      <Canvas dpr={[1, 2]} camera={{ position: [0, 2.4, 6], fov: 40 }}>
+      <Canvas
+        dpr={[1, 2]}
+        camera={{ position: [0, 6.2, 1.2], fov: 40 }}
+        onCreated={(state) => {
+          if (import.meta.env.DEV) window.__r3f = state // dev-only debug handle
+        }}
+      >
         <color attach="background" args={['#0b0b0d']} />
         <Suspense fallback={null}>
           <Scene />

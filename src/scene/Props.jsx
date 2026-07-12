@@ -1,43 +1,67 @@
-// Desk dressing. Primitive placeholders for now — these get swapped for
-// CC0 .glb models (public/models/) one at a time.
-export default function Props() {
+import { useMemo } from 'react'
+import { useGLTF } from '@react-three/drei'
+import { Box3, Group, Vector3 } from 'three'
+
+// Wraps a GLB of unknown scale/origin: uniformly scales it so its largest
+// dimension equals `size`, then sits it on the mat (bbox bottom at y=0),
+// centered on `position`. `preRotation` (e.g. laying a standing model on its
+// side) is applied before the floor-snap so the result still rests on the mat.
+function Model({ url, size, position = [0, 0, 0], rotationY = 0, preRotation = [0, 0, 0] }) {
+  const { scene } = useGLTF(url)
+
+  const normalized = useMemo(() => {
+    const clone = scene.clone(true)
+    const box = new Box3().setFromObject(clone)
+    const dims = box.getSize(new Vector3())
+    const s = size / Math.max(dims.x, dims.y, dims.z)
+    clone.scale.setScalar(s)
+    // rotate via a wrapper so the GLB root's own rotation is preserved
+    const holder = new Group()
+    holder.rotation.set(...preRotation)
+    holder.add(clone)
+    const box2 = new Box3().setFromObject(holder)
+    const center = box2.getCenter(new Vector3())
+    holder.position.set(-center.x, -box2.min.y, -center.z)
+    const outer = new Group()
+    outer.add(holder)
+    return outer
+  }, [scene, size, ...preRotation])
+
   return (
-    <group>
-      {/* coffee mug, right of the laptop */}
-      <group position={[2.15, 0, 0.4]}>
-        <mesh position={[0, 0.28, 0]} castShadow>
-          <cylinderGeometry args={[0.28, 0.24, 0.56, 32]} />
-          <meshStandardMaterial color="#e8e6e1" roughness={0.4} />
-        </mesh>
-        {/* coffee surface */}
-        <mesh position={[0, 0.55, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <circleGeometry args={[0.24, 32]} />
-          <meshStandardMaterial color="#3a2418" roughness={0.3} />
-        </mesh>
-        {/* handle */}
-        <mesh position={[0.31, 0.28, 0]} castShadow>
-          <torusGeometry args={[0.14, 0.035, 12, 24]} />
-          <meshStandardMaterial color="#e8e6e1" roughness={0.4} />
-        </mesh>
-      </group>
-
-      {/* crumpled paper ball, front left */}
-      <mesh position={[-1.9, 0.16, 0.95]} castShadow>
-        <icosahedronGeometry args={[0.18, 0]} />
-        <meshStandardMaterial color="#f2f0eb" roughness={0.95} flatShading />
-      </mesh>
-
-      {/* notebook + pen, left of the laptop */}
-      <group position={[-2.0, 0, -0.15]} rotation={[0, 0.4, 0]}>
-        <mesh position={[0, 0.05, 0]} castShadow>
-          <boxGeometry args={[1.0, 0.1, 1.35]} />
-          <meshStandardMaterial color="#b23b3b" roughness={0.6} />
-        </mesh>
-        <mesh position={[0.1, 0.13, 0]} rotation={[0, 0.3, Math.PI / 2]} castShadow>
-          <cylinderGeometry args={[0.03, 0.03, 0.9, 16]} />
-          <meshStandardMaterial color="#1d1f22" roughness={0.4} metalness={0.3} />
-        </mesh>
-      </group>
+    <group position={position} rotation={[0, rotationY, 0]}>
+      <primitive object={normalized} />
     </group>
   )
 }
+
+const MODELS = '/models'
+
+// Desk flat-lay, arranged to read nicely from the top-down camera.
+export default function Props() {
+  return (
+    <group>
+      <Model url={`${MODELS}/coffee_mug.glb`} size={0.85} position={[1.75, 0, 0.6]} rotationY={-0.5} />
+      <Model url={`${MODELS}/mouse.glb`} size={0.55} position={[1.65, 0, -0.6]} rotationY={0.25} />
+      {/* laid on its side so it rests flat on the mat */}
+      <Model
+        url={`${MODELS}/headphones.glb`}
+        size={1.6}
+        position={[2.75, 0, -1.3]}
+        rotationY={0.9}
+        preRotation={[0, 0, Math.PI / 2]}
+      />
+      <Model url={`${MODELS}/notebook.glb`} size={1.7} position={[-2.05, 0, 0]} rotationY={0.35} />
+      <Model url={`${MODELS}/glasses.glb`} size={1.3} position={[-1.75, 0, 1.6]} rotationY={-0.3} />
+      <Model url={`${MODELS}/crumpled_paper.glb`} size={0.6} position={[-0.6, 0, 1.55]} />
+      <Model url={`${MODELS}/sleeping_cat.glb`} size={1.6} position={[-2.4, 0, -1.6]} rotationY={0.7} />
+    </group>
+  )
+}
+
+useGLTF.preload(`${MODELS}/coffee_mug.glb`)
+useGLTF.preload(`${MODELS}/mouse.glb`)
+useGLTF.preload(`${MODELS}/headphones.glb`)
+useGLTF.preload(`${MODELS}/notebook.glb`)
+useGLTF.preload(`${MODELS}/glasses.glb`)
+useGLTF.preload(`${MODELS}/crumpled_paper.glb`)
+useGLTF.preload(`${MODELS}/sleeping_cat.glb`)
