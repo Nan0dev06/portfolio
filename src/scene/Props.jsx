@@ -52,7 +52,10 @@ export default function Props() {
         preRotation={[0, 0, Math.PI / 2]}
       />
       <Model url={`${MODELS}/notebook.glb`} size={1.13} position={[-2.38, 0, 1.03]} rotationY={0.35} />
-      <Model url={`${MODELS}/crumpled_paper.glb`} size={0.5} position={[-1.73, 0, 0.32]} />
+      {/* glasses tucked under the crumpled paper — drawn first so the paper
+          ball renders on top and the glasses peek out from beneath it */}
+      <Model url={`${MODELS}/glasses.glb`} size={0.5} position={[-1.5, 0, 0.55]} rotationY={0.3} />
+      <Model url={`${MODELS}/crumpled_paper.glb`} size={0.38} position={[-1.73, 0, 0.32]} />
       <Model url={`${MODELS}/sleeping_cat.glb`} size={1.15} position={[-2.48, 0, -0.55]} rotationY={0.7} />
     </group>
   )
@@ -64,3 +67,4 @@ useGLTF.preload(`${MODELS}/headphones.glb`)
 useGLTF.preload(`${MODELS}/notebook.glb`)
 useGLTF.preload(`${MODELS}/crumpled_paper.glb`)
 useGLTF.preload(`${MODELS}/sleeping_cat.glb`)
+useGLTF.preload(`${MODELS}/glasses.glb`)

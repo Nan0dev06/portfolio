@@ -57,13 +57,6 @@ function drawMat() {
   }
   ctx.strokeRect(L, T, fw, fh)
 
-  // title
-  ctx.fillStyle = '#cfe8d9'
-  ctx.textAlign = 'right'
-  ctx.globalAlpha = 0.85
-  ctx.font = 'bold 52px system-ui, sans-serif'
-  ctx.fillText('CUTTING MAT 3022', W - 60, T + 8)
-
   ctx.globalAlpha = 1
   return c
 }

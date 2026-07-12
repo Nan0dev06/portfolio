@@ -19,7 +19,7 @@ export default function App() {
     <>
       <Canvas
         dpr={[1, 2]}
-        camera={{ position: [0, 5.8, 0.6], fov: 40 }}
+        camera={{ position: [0, 4.9, 0.6], fov: 40 }}
         onCreated={(state) => {
           if (import.meta.env.DEV) window.__r3f = state // dev-only debug handle
         }}

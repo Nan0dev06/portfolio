@@ -14,10 +14,11 @@ const OVERVIEW_LOOK = new Vector3(0, 0, MAT_Z)
 const ENTERED_POS = new Vector3(0, 0.95, 1.75)
 const ENTERED_LOOK = new Vector3(0, 0.85, -0.35)
 
-// height at which the full mat fits the viewport (with a small margin)
+// height at which the mat COVERS the viewport (fills it edge-to-edge, cropping
+// the overflow) — so there are never any black bars around the mat.
 function overviewHeight(aspect) {
   const halfTan = Math.tan(((FOV / 2) * Math.PI) / 180)
-  return Math.max(MAT_H / 2 / halfTan, MAT_W / 2 / (halfTan * aspect)) * 1.08
+  return Math.min(MAT_H / 2 / halfTan, MAT_W / 2 / (halfTan * aspect)) * 0.97
 }
 
 export default function Scene() {
