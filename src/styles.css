@@ -4,6 +4,7 @@ body {
   background: #0b0b0d;
   overflow: hidden;
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  cursor: url("/cursor.png") 6 3, auto;
 }
 canvas { display: block; }
 

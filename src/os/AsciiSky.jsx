@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 // Interactive ASCII sky: white ASCII clouds drifting over Y2K blue.
 // Characters near the cursor get pushed around (ripple on hover).
 const RAMP = [' ', ' ', '.', '·', ':', '*', 'o', 'O', '#', '@']
-const CELL = 15
+const CELL = 23
 
 // cheap hashed value noise
 function hash(ix, iy) {
@@ -65,7 +65,7 @@ export default function AsciiSky() {
       for (let gy = 0; gy < H / CELL + 1; gy++) {
         for (let gx = 0; gx < W / CELL + 1; gx++) {
           const v = clouds(gx, gy, t)
-          const level = Math.floor((v - 0.29) * 34)
+          const level = Math.floor((v - 0.22) * 34)
           if (level < 1) continue
           const ch = RAMP[Math.min(RAMP.length - 1, level)]
           let x = gx * CELL

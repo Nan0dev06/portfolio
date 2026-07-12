@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { useOS } from './osStore'
 
-function Star({ onClick, title }) {
+function Star({ onClick, title, color }) {
   return (
-    <button className="star-btn" title={title} onPointerDown={(e) => e.stopPropagation()} onClick={onClick}>
+    <button
+      className={`star-btn ${color}`}
+      title={title}
+      onPointerDown={(e) => e.stopPropagation()}
+      onClick={onClick}
+    >
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 2l2.9 6.2 6.8.8-5 4.6 1.3 6.7L12 17.8 5.9 20.3l1.3-6.7-5-4.6 6.8-.8z" />
       </svg>
@@ -22,18 +27,15 @@ export default function Window({ id, title, width = 460, children }) {
 
   if (!win.open && !closing) return null
 
-  const finishClose = () => {
-    clearTimeout(closeTimer.current)
-    setClosing(false)
-    closeWindow(id)
-  }
+  // close = play the exit animation, then unmount on a timer (no animationend
+  // dependency — that stalls when the tab is backgrounded and left windows stuck)
   const beginClose = () => {
+    if (closing) return
     setClosing(true)
-    // fallback in case animationend never fires (e.g. backgrounded tab pauses the animation)
-    closeTimer.current = setTimeout(finishClose, 280)
-  }
-  const onAnimEnd = () => {
-    if (closing) finishClose()
+    closeTimer.current = setTimeout(() => {
+      setClosing(false)
+      closeWindow(id)
+    }, 190)
   }
 
   const onTitlePointerDown = (e) => {
@@ -57,7 +59,6 @@ export default function Window({ id, title, width = 460, children }) {
       className={`window ${closing ? 'closing' : 'opening'}`}
       style={{ left: win.x, top: win.y, zIndex: win.z, width }}
       onPointerDown={() => focusWindow(id)}
-      onAnimationEnd={onAnimEnd}
     >
       <div
         className="window-titlebar"
@@ -65,11 +66,12 @@ export default function Window({ id, title, width = 460, children }) {
         onPointerMove={onTitlePointerMove}
         onPointerUp={onTitlePointerUp}
       >
-        <span className="window-title">{title}</span>
         <div className="win-controls">
-          <Star title="minimize" onClick={beginClose} />
-          <Star title={`close ${title}`} onClick={beginClose} />
+          <Star color="red" title={`close ${title}`} onClick={beginClose} />
+          <Star color="yellow" title="minimize" onClick={() => {}} />
+          <Star color="green" title="zoom" onClick={() => {}} />
         </div>
+        <span className="window-title">{title}</span>
       </div>
       <div className="window-body">{children}</div>
     </div>

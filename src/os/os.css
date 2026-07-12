@@ -20,6 +20,11 @@
   user-select: none;
 }
 
+/* chrome-silver custom cursor everywhere (except drawing/typing surfaces) */
+.desktop, .login, .desktop *, .login * { cursor: url("/cursor.png") 6 3, auto; }
+.desktop .paint-canvas { cursor: crosshair; }
+.desktop .gb-form input { cursor: text; }
+
 /* ═══ POWER-ON (brief black screen before login) ══════════════════════════ */
 .power-on {
   position: absolute;
@@ -254,10 +259,9 @@
 .window-titlebar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
   height: 34px;
-  padding: 0 8px 0 14px;
+  padding: 0 14px 0 10px;
   cursor: grab;
   touch-action: none;
   background: linear-gradient(180deg, rgba(37, 48, 255, 0.9), rgba(37, 48, 255, 0.72));
@@ -270,9 +274,9 @@
   color: #eaf0ff;
   text-transform: lowercase;
 }
-.win-controls { display: flex; gap: 4px; }
+.win-controls { display: flex; gap: 5px; }
 .star-btn {
-  width: 22px; height: 22px;
+  width: 20px; height: 20px;
   display: grid; place-items: center;
   padding: 0;
   background: none;
@@ -280,9 +284,16 @@
   cursor: pointer;
 }
 .star-btn svg { width: 16px; height: 16px; }
-.star-btn svg path { fill: #cdd6ff; transition: fill 0.12s, transform 0.12s; }
-.star-btn:hover svg path { fill: var(--cyan); }
-.star-btn:active svg { transform: scale(0.85); }
+.star-btn svg path {
+  transition: filter 0.12s, transform 0.12s;
+  stroke: rgba(0, 0, 0, 0.25);
+  stroke-width: 0.5;
+}
+.star-btn.red svg path { fill: #ff5f57; }
+.star-btn.yellow svg path { fill: #febc2e; }
+.star-btn.green svg path { fill: #28c840; }
+.star-btn:hover svg path { filter: brightness(1.25) drop-shadow(0 0 3px currentColor); }
+.star-btn:active svg { transform: scale(0.82); }
 
 .window-body {
   padding: 16px;
