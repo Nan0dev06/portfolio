@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import MenuBar from './MenuBar.jsx'
 import Dock from './Dock.jsx'
 import Window from './Window.jsx'
@@ -10,9 +10,17 @@ import { Projects, Resume, Contact, Guestbook } from './apps.jsx'
 import './os.css'
 
 export default function OS() {
-  const [entered, setEntered] = useState(false)
+  // 'power' → brief black screen (laptop turning on) → 'login' → 'desktop'
+  const [phase, setPhase] = useState('power')
 
-  if (!entered) return <Login onDone={() => setEntered(true)} />
+  useEffect(() => {
+    if (phase !== 'power') return
+    const t = setTimeout(() => setPhase('login'), 650)
+    return () => clearTimeout(t)
+  }, [phase])
+
+  if (phase === 'power') return <div className="power-on" />
+  if (phase === 'login') return <Login onDone={() => setPhase('desktop')} />
 
   return (
     <div className="desktop">

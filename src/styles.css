@@ -22,11 +22,11 @@ canvas { display: block; }
 }
 @keyframes pulse { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.9; } }
 
-/* the main page — blank for now, fades in once we've "entered" the screen */
+/* the main page — backdrop shown as we "enter" the screen (liminal room photo) */
 .page {
   position: fixed;
   inset: 0;
-  background: #0a0b0d;
+  background: #0a0b0d url("/enter_bg.jpg") center / cover no-repeat;
   opacity: 0;
   pointer-events: none;
   transition: opacity 1s ease;

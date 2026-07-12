@@ -20,6 +20,33 @@
   user-select: none;
 }
 
+/* ═══ POWER-ON (brief black screen before login) ══════════════════════════ */
+.power-on {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  animation: power-flick 0.65s ease-out;
+}
+.power-on::after {
+  content: "";
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #39ff88;
+  box-shadow: 0 0 10px #39ff88;
+  animation: power-led 0.65s ease-out;
+}
+@keyframes power-flick {
+  0% { background: #000; }
+  8% { background: #0a1a2a; }
+  12% { background: #000; }
+  100% { background: #000; }
+}
+@keyframes power-led { 0%, 40% { opacity: 0; } 55% { opacity: 1; } 100% { opacity: 0.5; } }
+
 /* ═══ LOGIN / LOADING ═════════════════════════════════════════════════════ */
 .login {
   display: flex;

@@ -38,6 +38,43 @@ function Sticker({ n, x, y, s, r, i }) {
 const LID_CLOSED = Math.PI / 2 - 0.06 // folded flat over the keyboard
 const LID_OPEN = -0.35 // stood up and leaning back
 
+// a single keycap
+function Key({ position, w = 0.1 }) {
+  return (
+    <mesh position={position} castShadow>
+      <boxGeometry args={[w, 0.02, 0.1]} />
+      <meshStandardMaterial color="#3a3d42" roughness={0.6} metalness={0.2} />
+    </mesh>
+  )
+}
+
+// grid of keys sitting on the deck, behind the trackpad
+function Keys() {
+  const cols = 14
+  const topRows = 4
+  const kx = 0.125
+  const kz = 0.115
+  const startX = -((cols - 1) * kx) / 2
+  const startZ = -0.33
+  const spaceZ = startZ + topRows * kz
+  const keys = []
+  for (let r = 0; r < topRows; r++) {
+    for (let c = 0; c < cols; c++) {
+      keys.push([startX + c * kx, 0.118, startZ + r * kz])
+    }
+  }
+  return (
+    <group>
+      {keys.map((p, i) => (
+        <Key key={i} position={p} />
+      ))}
+      <Key position={[0, 0.118, spaceZ]} w={0.72} />
+      <Key position={[-0.58, 0.118, spaceZ]} w={0.16} />
+      <Key position={[0.58, 0.118, spaceZ]} w={0.16} />
+    </group>
+  )
+}
+
 export default function Laptop() {
   const lid = useRef()
   const phase = useStore((s) => s.phase)
@@ -68,6 +105,9 @@ export default function Laptop() {
         <planeGeometry args={[1.95, 1.05]} />
         <meshStandardMaterial color="#26282c" roughness={0.7} />
       </mesh>
+
+      {/* keys */}
+      <Keys />
 
       {/* trackpad */}
       <mesh position={[0, 0.107, 0.5]} rotation={[-Math.PI / 2, 0, 0]}>
