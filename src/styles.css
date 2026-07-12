@@ -1,7 +1,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body, #root { width: 100%; height: 100%; }
 body {
-  background: #0b0b0d;
+  background: #0b0b0d url("/enter_bg.jpg") center / cover no-repeat;
   overflow: hidden;
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   cursor: url("/cursor.png") 6 3, auto;

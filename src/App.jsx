@@ -20,11 +20,13 @@ export default function App() {
       <Canvas
         dpr={[1, 2]}
         camera={{ position: [0, 4.9, 0.6], fov: 40 }}
+        gl={{ alpha: true }}
         onCreated={(state) => {
           if (import.meta.env.DEV) window.__r3f = state // dev-only debug handle
         }}
       >
-        <color attach="background" args={['#0b0b0d']} />
+        {/* no scene background — canvas is transparent so the liminal room
+            image (on <body>) shows behind the laptop as the camera dives in */}
         <Suspense fallback={null}>
           <Scene />
         </Suspense>
