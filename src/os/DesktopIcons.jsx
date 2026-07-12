@@ -1,66 +1,103 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useOS } from './osStore'
 import { languages } from './data'
+import { ICONS } from './icons.jsx'
 
-function FolderGlyph() {
+// draggable desktop icon that opens its target on a click (not a drag)
+function Icon({ id, icon, active, onOpen }) {
+  const moveIcon = useOS((s) => s.moveIcon)
+  const drag = useRef(null)
+  const Glyph = ICONS[icon.kind] || ICONS.file
+
+  const onPointerDown = (e) => {
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId)
+    } catch {
+      /* synthetic events may lack a live pointer */
+    }
+    drag.current = { sx: e.clientX, sy: e.clientY, bx: icon.x, by: icon.y, moved: false }
+  }
+  const onPointerMove = (e) => {
+    if (!drag.current) return
+    const dx = e.clientX - drag.current.sx
+    const dy = e.clientY - drag.current.sy
+    if (!drag.current.moved && Math.hypot(dx, dy) < 5) return
+    drag.current.moved = true
+    moveIcon(id, Math.max(0, drag.current.bx + dx), Math.max(28, drag.current.by + dy))
+  }
+  const onPointerUp = () => {
+    if (drag.current && !drag.current.moved) onOpen()
+    drag.current = null
+  }
+
   return (
-    <svg viewBox="0 0 48 38" className="folder-svg">
-      <path d="M2 8a4 4 0 0 1 4-4h12l4 5h20a4 4 0 0 1 4 4v21a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
-    </svg>
+    <button
+      className={`desk-icon ${active ? 'active' : ''}`}
+      style={{ left: icon.x, top: icon.y }}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+    >
+      <span className="desk-icon-img">
+        <Glyph />
+      </span>
+      <span className="desk-icon-name">{icon.label}</span>
+    </button>
   )
 }
 
 export default function DesktopIcons() {
+  const icons = useOS((s) => s.icons)
+  const windows = useOS((s) => s.windows)
   const openWindow = useOS((s) => s.openWindow)
   const [spilled, setSpilled] = useState(false)
 
+  // scattered destinations for the language chips (offset from the folder)
+  const scatter = languages.map((_, i) => {
+    const seed = i * 97.13
+    const dx = (Math.sin(seed) * 0.5 + 0.5) * 520 - 120
+    const dy = (Math.cos(seed * 1.7) * 0.5 + 0.5) * 360 - 40
+    const rot = Math.sin(seed * 3.1) * 24
+    return { dx, dy, rot }
+  })
+
+  const openTarget = (id, icon) => {
+    if (id === 'languages') return setSpilled((v) => !v)
+    if (icon.link) return window.open(icon.link, '_blank', 'noopener')
+    openWindow(id)
+  }
+
+  const lang = icons.languages
+
   return (
     <div className="desktop-icons">
-      <button className="desk-icon" onDoubleClick={() => openWindow('about')} onClick={() => openWindow('about')}>
-        <span className="desk-icon-img">📷</span>
-        <span className="desk-icon-name">me.jpeg</span>
-      </button>
+      {Object.entries(icons)
+        .filter(([id]) => id !== 'languages')
+        .map(([id, icon]) => (
+          <Icon key={id} id={id} icon={icon} active={windows[id]?.open} onOpen={() => openTarget(id, icon)} />
+        ))}
 
-      {/* languages folder — click to spill the language chips out */}
-      <div className="folder-wrap">
-        <button className="desk-icon" onClick={() => setSpilled((v) => !v)}>
-          <span className={`desk-icon-img folder ${spilled ? 'open' : ''}`}>
-            <FolderGlyph />
-          </span>
-          <span className="desk-icon-name">languages</span>
-        </button>
-        <div className={`spill ${spilled ? 'out' : ''}`}>
-          {languages.map((lang, i) => {
-            // fan the chips out to the left of the folder in a gentle arc
-            const t = i / Math.max(1, languages.length - 1)
-            const angle = (-150 + t * 120) * (Math.PI / 180)
-            const r = 92 + (i % 2) * 34
-            const x = Math.cos(angle) * r
-            const y = Math.sin(angle) * r * 0.75
-            return (
-              <span
-                key={lang.name}
-                className="lang-chip"
-                title={lang.name}
-                style={{
-                  '--tx': `${x}px`,
-                  '--ty': `${y}px`,
-                  transitionDelay: spilled ? `${i * 45}ms` : `${(languages.length - i) * 25}ms`,
-                  background: lang.color,
-                  color: lang.dark ? '#2b2320' : '#fff',
-                }}
-              >
-                {lang.code}
-              </span>
-            )
-          })}
-        </div>
-      </div>
-
-      <button className="desk-icon" onClick={() => openWindow('resume')}>
-        <span className="desk-icon-img">📄</span>
-        <span className="desk-icon-name">resume.pdf</span>
-      </button>
+      {/* languages folder — chips fly out and scatter, click again to recall */}
+      <Icon id="languages" icon={lang} active={spilled} onOpen={() => openTarget('languages', lang)} />
+      {languages.map((l, i) => (
+        <span
+          key={l.name}
+          className={`lang-chip ${spilled ? 'out' : ''}`}
+          title={l.name}
+          style={{
+            left: lang.x + 12,
+            top: lang.y + 10,
+            '--dx': `${scatter[i].dx}px`,
+            '--dy': `${scatter[i].dy}px`,
+            '--rot': `${scatter[i].rot}deg`,
+            transitionDelay: `${(spilled ? i : languages.length - i) * 40}ms`,
+            background: l.color,
+            color: l.dark ? '#0a0e2a' : '#fff',
+          }}
+        >
+          {l.code}
+        </span>
+      ))}
     </div>
   )
 }

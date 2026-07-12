@@ -1,11 +1,13 @@
 import { useOS } from './osStore'
+import { ICONS } from './icons.jsx'
 
+// Same kinds as the desktop icons so the artwork matches everywhere.
 const APPS = [
-  { id: 'about', label: 'about me', glyph: '🙂' },
-  { id: 'projects', label: 'projects', glyph: '🛠️' },
-  { id: 'resume', label: 'resume', glyph: '📄' },
-  { id: 'contact', label: 'contact', glyph: '✉️' },
-  { id: 'guestbook', label: 'guestbook', glyph: '✍️' },
+  { id: 'about', label: 'about me', kind: 'paint' },
+  { id: 'projects', label: 'projects', kind: 'folder' },
+  { id: 'resume', label: 'resume', kind: 'file' },
+  { id: 'contact', label: 'contact', kind: 'envelope' },
+  { id: 'guestbook', label: 'guestbook', kind: 'book' },
 ]
 
 export default function Dock() {
@@ -14,18 +16,18 @@ export default function Dock() {
 
   return (
     <div className="dock">
-      {APPS.map((app) => (
-        <button
-          key={app.id}
-          className="dock-item"
-          title={app.label}
-          onClick={() => openWindow(app.id)}
-        >
-          <span className="dock-glyph">{app.glyph}</span>
-          <span className="dock-label">{app.label}</span>
-          {windows[app.id].open && <span className="dock-dot" />}
-        </button>
-      ))}
+      {APPS.map((app) => {
+        const Glyph = ICONS[app.kind]
+        return (
+          <button key={app.id} className="dock-item" title={app.label} onClick={() => openWindow(app.id)}>
+            <span className="dock-glyph">
+              <Glyph />
+            </span>
+            <span className="dock-label">{app.label}</span>
+            {windows[app.id].open && <span className="dock-dot" />}
+          </button>
+        )
+      })}
     </div>
   )
 }
