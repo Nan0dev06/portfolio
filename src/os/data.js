@@ -2,16 +2,17 @@
 
 export const profile = {
   name: 'nano', // your display name
-  fullName: 'Nour', // TODO: put your full name
-  title: 'developer',
+  fullName: 'Nour Al Shami',
+  title: 'CS student · AI engineering, CV focus',
   avatar: null, // TODO: put a photo in /public and set e.g. '/me.jpg'
   about: [
-    "hey, i'm nano — welcome to my little corner of the internet.",
-    'this is placeholder text. tell visitors who you are, what you love building, and what you are learning right now.',
+    "hey, i'm nano — first-year CS student aiming at AI engineering with a computer vision focus.",
+    "i build AI products end to end: product direction, frontend, and the applied LLM wiring that ties it together. most recently led the frontend and product side of ClearHead, an AI cognitive-load manager, to a finalist placement at the USAII Global AI Hackathon 2026.",
+    'outside of that — Java Swing desktop apps, an SSH-native terminal portfolio, and whatever new idea is currently living rent-free in my head.',
   ],
-  email: 'you@example.com', // TODO: your public contact email
+  email: 'nano.06dev@gmail.com',
   github: 'https://github.com/Nan0dev06',
-  resumeUrl: null, // TODO: put resume.pdf in /public and set '/resume.pdf'
+  resumeUrl: '/resume.pdf',
 }
 
 // languages / tech that spill out of the desktop folder
