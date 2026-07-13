@@ -59,11 +59,15 @@ canvas {
   }
 }
 
-/* the main page — backdrop shown as we "enter" the screen (liminal room photo) */
+/* the main page — hosts the OS. Plain dark, no image: the liminal photo lives
+   only in .enter-bg (behind the transparent canvas, during the laptop-open
+   dive). If .page had the photo too, it would flash back into view any time
+   something inside the OS fades out (e.g. the login screen's exit fade)
+   before the next opaque layer mounts over it. */
 .page {
   position: fixed;
   inset: 0;
-  background: #0a0b0d url("/enter_bg.jpg") center / cover no-repeat;
+  background: #0a0b0d;
   opacity: 0;
   pointer-events: none;
   transition: opacity 1s ease;
