@@ -5,8 +5,11 @@ import { useViewport, clamp } from './useViewport'
 // same safe-area the CSS .maximized rule uses (menu bar / dock clearance)
 const DESKTOP_MARGIN = { left: 16, top: 40, right: 16, bottom: 96 }
 // rough non-content chrome inside a window: titlebar + body padding, plus
-// (for content like a PDF preview) a bit of room for a caption/button below it
-const CHROME = { w: 32, h: 120 }
+// (for content like a PDF preview) room for a caption/button below it. Kept
+// generous on purpose — undershooting leaves a small gap, but overshooting
+// makes the content overflow into a scrollbar, which shrinks the available
+// width and re-triggers the resize observer in a feedback loop.
+const CHROME = { w: 48, h: 170 }
 
 // largest box matching `aspect` (height/width) that fits the desktop's safe
 // area once CHROME is subtracted — so maximizing hugs the actual content

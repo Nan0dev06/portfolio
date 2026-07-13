@@ -394,7 +394,11 @@
    size) and can rasterize at that exact resolution — crisp at any window size */
 .pdf-thumb { display: flex; justify-content: center; width: 100%; margin-bottom: 12px; }
 .pdf-thumb canvas {
-  max-width: 100%;
+  /* PdfThumb sets style.width/height to match the container exactly, in JS —
+     no CSS max-width needed (and box-sizing:content-box so those JS-set
+     pixel dimensions describe the drawing surface itself, not a border-box
+     total, keeping the on-screen size exactly what was rasterized). */
+  box-sizing: content-box;
   border-radius: 4px;
   border: 1px solid var(--glass-line);
   box-shadow: 0 8px 24px rgba(5, 8, 40, 0.35);
