@@ -31,8 +31,14 @@ export default function Paint() {
   useEffect(redraw, [])
 
   const pos = (e) => {
-    const r = canvasRef.current.getBoundingClientRect()
-    return { x: e.clientX - r.left, y: e.clientY - r.top }
+    const c = canvasRef.current
+    const r = c.getBoundingClientRect()
+    // map from displayed (CSS) size to the fixed drawing-buffer size — they
+    // differ whenever the window is narrower/wider than the buffer
+    return {
+      x: (e.clientX - r.left) * (c.width / r.width),
+      y: (e.clientY - r.top) * (c.height / r.height),
+    }
   }
   const down = (e) => {
     try {

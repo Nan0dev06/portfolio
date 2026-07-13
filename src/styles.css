@@ -9,6 +9,15 @@ body,
   width: 100%;
   height: 100%;
 }
+/* mobile: track the dynamic viewport so the canvas/OS aren't sized past the
+   visible area while the browser's URL bar is showing */
+@supports (height: 100dvh) {
+  html,
+  body,
+  #root {
+    height: 100dvh;
+  }
+}
 body {
   background: #0b0b0d;
   overflow: hidden;

@@ -2,12 +2,17 @@ import { useRef, useState } from 'react'
 import { useOS } from './osStore'
 import { languages } from './data'
 import { ICONS } from './icons.jsx'
+import { useViewport, clamp } from './useViewport'
+
+// keep an icon fully on screen (90px wide, ~110px tall incl. label; 28px menubar)
+const iconBounds = (vw, vh) => ({ maxX: vw - 94, maxY: vh - 118 })
 
 // draggable desktop icon that opens its target on a click (not a drag)
-function Icon({ id, icon, active, onOpen }) {
+function Icon({ id, icon, active, onOpen, vw, vh }) {
   const moveIcon = useOS((s) => s.moveIcon)
   const drag = useRef(null)
   const Glyph = ICONS[icon.kind] || ICONS.file
+  const { maxX, maxY } = iconBounds(vw, vh)
 
   const onPointerDown = (e) => {
     try {
@@ -15,7 +20,14 @@ function Icon({ id, icon, active, onOpen }) {
     } catch {
       /* synthetic events may lack a live pointer */
     }
-    drag.current = { sx: e.clientX, sy: e.clientY, bx: icon.x, by: icon.y, moved: false }
+    // base off the clamped (rendered) position so the first drag doesn't jump
+    drag.current = {
+      sx: e.clientX,
+      sy: e.clientY,
+      bx: clamp(icon.x, 0, maxX),
+      by: clamp(icon.y, 28, maxY),
+      moved: false,
+    }
   }
   const onPointerMove = (e) => {
     if (!drag.current) return
@@ -23,7 +35,7 @@ function Icon({ id, icon, active, onOpen }) {
     const dy = e.clientY - drag.current.sy
     if (!drag.current.moved && Math.hypot(dx, dy) < 5) return
     drag.current.moved = true
-    moveIcon(id, Math.max(0, drag.current.bx + dx), Math.max(28, drag.current.by + dy))
+    moveIcon(id, clamp(drag.current.bx + dx, 0, maxX), clamp(drag.current.by + dy, 28, maxY))
   }
   const onPointerUp = () => {
     if (drag.current && !drag.current.moved) onOpen()
@@ -33,7 +45,7 @@ function Icon({ id, icon, active, onOpen }) {
   return (
     <button
       className={`desk-icon ${active ? 'active' : ''}`}
-      style={{ left: icon.x, top: icon.y }}
+      style={{ left: clamp(icon.x, 0, maxX), top: clamp(icon.y, 28, maxY) }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
@@ -51,14 +63,22 @@ export default function DesktopIcons() {
   const windows = useOS((s) => s.windows)
   const toggleWindow = useOS((s) => s.toggleWindow)
   const [spilled, setSpilled] = useState(false)
+  const { vw, vh } = useViewport()
 
-  // scattered destinations for the language chips (offset from the folder)
+  const lang = icons.languages
+
+  // scattered destinations for the language chips (offset from the folder),
+  // clamped so every chip lands on screen even on small viewports
   const scatter = languages.map((_, i) => {
     const seed = i * 97.13
     const dx = (Math.sin(seed) * 0.5 + 0.5) * 520 - 120
     const dy = (Math.cos(seed * 1.7) * 0.5 + 0.5) * 360 - 40
     const rot = Math.sin(seed * 3.1) * 24
-    return { dx, dy, rot }
+    return {
+      dx: clamp(dx, 8 - (lang.x + 12), vw - 52 - (lang.x + 12)),
+      dy: clamp(dy, 34 - (lang.y + 10), vh - 58 - (lang.y + 10)),
+      rot,
+    }
   })
 
   const openTarget = (id, icon) => {
@@ -66,8 +86,6 @@ export default function DesktopIcons() {
     if (icon.link) return window.open(icon.link, '_blank', 'noopener')
     toggleWindow(id)
   }
-
-  const lang = icons.languages
 
   return (
     <div className="desktop-icons">
@@ -78,13 +96,22 @@ export default function DesktopIcons() {
             key={id}
             id={id}
             icon={icon}
+            vw={vw}
+            vh={vh}
             active={windows[id]?.open && !windows[id]?.minimized}
             onOpen={() => openTarget(id, icon)}
           />
         ))}
 
       {/* languages folder — chips fly out and scatter, click again to recall */}
-      <Icon id="languages" icon={lang} active={spilled} onOpen={() => openTarget('languages', lang)} />
+      <Icon
+        id="languages"
+        icon={lang}
+        vw={vw}
+        vh={vh}
+        active={spilled}
+        onOpen={() => openTarget('languages', lang)}
+      />
       {languages.map((l, i) => (
         <span
           key={l.name}

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { profile, projects } from './data'
+import { useOS } from './osStore'
 import PdfThumb from './PdfThumb.jsx'
 
 export function About() {
@@ -44,11 +45,12 @@ export function Projects() {
 }
 
 export function Resume() {
+  const setContentAspect = useOS((s) => s.setContentAspect)
   return (
     <div className="app-resume">
       {profile.resumeUrl ? (
         <>
-          <PdfThumb url={profile.resumeUrl} />
+          <PdfThumb url={profile.resumeUrl} onAspectRatio={(r) => setContentAspect('resume', r)} />
           <a className="btn" href={profile.resumeUrl} target="_blank" rel="noreferrer" download>
             download resume.pdf
           </a>

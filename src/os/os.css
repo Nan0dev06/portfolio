@@ -390,7 +390,9 @@
 .gb-form input:nth-child(2) { flex: 1; }
 
 .app-resume { display: flex; flex-direction: column; align-items: center; }
-.pdf-thumb { display: flex; justify-content: center; margin-bottom: 12px; }
+/* full-width so PdfThumb measures real available space (not its own canvas
+   size) and can rasterize at that exact resolution — crisp at any window size */
+.pdf-thumb { display: flex; justify-content: center; width: 100%; margin-bottom: 12px; }
 .pdf-thumb canvas {
   max-width: 100%;
   border-radius: 4px;
@@ -433,3 +435,31 @@
   touch-action: none;
 }
 .paint-hint { position: absolute; bottom: 6px; right: 10px; font-size: 0.68rem; color: var(--blue); opacity: 0.6; pointer-events: none; }
+
+/* ═══ SMALL SCREENS (phones / squeezed windows) ═══════════════════════════ */
+.window { max-width: calc(100vw - 16px); }
+
+@media (max-width: 640px) {
+  .menubar { padding: 0 10px; font-size: 0.7rem; }
+  .menubar-left, .menubar-right { gap: 8px; }
+  .menubar-item { display: none; }
+
+  .window-body { padding: 12px; }
+  .window.maximized { left: 8px; top: 36px; right: 8px; bottom: 84px; }
+
+  .dock { bottom: 10px; gap: 2px; padding: 6px 8px; max-width: calc(100vw - 12px); }
+  .dock-item { padding: 4px 5px; }
+  .dock-glyph { width: 34px; height: 34px; }
+
+  .login-card { margin: 0 14px; padding: 22px 26px; }
+  .globe-video { width: 96px; height: 96px; }
+  .login-field { min-width: 0; align-self: stretch; }
+
+  /* paint: tools sit in a row above the canvas instead of a side column */
+  .paint-stage { flex-direction: column; }
+  .paint-tools { flex-direction: row; align-items: center; flex-wrap: wrap; }
+  .swatches { grid-template-columns: repeat(4, 1fr); }
+
+  .gb-form { flex-wrap: wrap; }
+  .gb-form input:first-child { width: 100%; }
+}
