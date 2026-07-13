@@ -174,7 +174,10 @@
 .menubar-item { color: var(--blue-soft); text-transform: uppercase; }
 
 /* ═══ DESKTOP ICONS ═══════════════════════════════════════════════════════ */
-.desktop-icons { position: absolute; inset: 0; z-index: 10; }
+/* This layer spans the whole desktop so icons can sit anywhere, but it must
+   not swallow clicks meant for a window on top of it — only the icon buttons
+   (and out-scattered language chips) themselves are clickable. */
+.desktop-icons { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
 .desk-icon {
   position: absolute;
   width: 90px;
@@ -188,6 +191,7 @@
   color: #eaf0ff;
   font-family: inherit;
   touch-action: none;
+  pointer-events: auto;
 }
 .desk-icon:active { cursor: grabbing; }
 .desk-icon-img {

@@ -49,7 +49,7 @@ function Icon({ id, icon, active, onOpen }) {
 export default function DesktopIcons() {
   const icons = useOS((s) => s.icons)
   const windows = useOS((s) => s.windows)
-  const openWindow = useOS((s) => s.openWindow)
+  const toggleWindow = useOS((s) => s.toggleWindow)
   const [spilled, setSpilled] = useState(false)
 
   // scattered destinations for the language chips (offset from the folder)
@@ -64,7 +64,7 @@ export default function DesktopIcons() {
   const openTarget = (id, icon) => {
     if (id === 'languages') return setSpilled((v) => !v)
     if (icon.link) return window.open(icon.link, '_blank', 'noopener')
-    openWindow(id)
+    toggleWindow(id)
   }
 
   const lang = icons.languages
@@ -74,7 +74,13 @@ export default function DesktopIcons() {
       {Object.entries(icons)
         .filter(([id]) => id !== 'languages')
         .map(([id, icon]) => (
-          <Icon key={id} id={id} icon={icon} active={windows[id]?.open} onOpen={() => openTarget(id, icon)} />
+          <Icon
+            key={id}
+            id={id}
+            icon={icon}
+            active={windows[id]?.open && !windows[id]?.minimized}
+            onOpen={() => openTarget(id, icon)}
+          />
         ))}
 
       {/* languages folder — chips fly out and scatter, click again to recall */}

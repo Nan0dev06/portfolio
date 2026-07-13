@@ -18,23 +18,27 @@ function Star({ onClick, title, color }) {
 
 export default function Window({ id, title, width = 460, children }) {
   const win = useOS((s) => s.windows[id])
-  const { closeWindow, focusWindow, moveWindow } = useOS.getState()
+  const { closeWindow, minimizeWindow, focusWindow, moveWindow } = useOS.getState()
   const drag = useRef(null)
-  const closeTimer = useRef(null)
-  const [closing, setClosing] = useState(false)
+  const hideTimer = useRef(null)
+  // 'close' | 'minimize' | null — which exit animation (if any) is playing
+  const [hiding, setHiding] = useState(null)
 
-  useEffect(() => () => clearTimeout(closeTimer.current), [])
+  useEffect(() => () => clearTimeout(hideTimer.current), [])
 
-  if (!win.open && !closing) return null
+  const visible = win.open && !win.minimized
+  if (!visible && !hiding) return null
 
-  // close = play the exit animation, then unmount on a timer (no animationend
-  // dependency — that stalls when the tab is backgrounded and left windows stuck)
-  const beginClose = () => {
-    if (closing) return
-    setClosing(true)
-    closeTimer.current = setTimeout(() => {
-      setClosing(false)
-      closeWindow(id)
+  // close/minimize both play the same shrink-out animation, then apply the
+  // real state change on a timer (no animationend dependency — that stalls
+  // when the tab is backgrounded and leaves windows stuck on screen)
+  const beginHide = (mode) => {
+    if (hiding) return
+    setHiding(mode)
+    hideTimer.current = setTimeout(() => {
+      setHiding(null)
+      if (mode === 'close') closeWindow(id)
+      else minimizeWindow(id)
     }, 190)
   }
 
@@ -56,7 +60,7 @@ export default function Window({ id, title, width = 460, children }) {
 
   return (
     <div
-      className={`window ${closing ? 'closing' : 'opening'}`}
+      className={`window ${hiding ? 'closing' : 'opening'}`}
       style={{ left: win.x, top: win.y, zIndex: win.z, width }}
       onPointerDown={() => focusWindow(id)}
     >
@@ -67,8 +71,8 @@ export default function Window({ id, title, width = 460, children }) {
         onPointerUp={onTitlePointerUp}
       >
         <div className="win-controls">
-          <Star color="red" title={`close ${title}`} onClick={beginClose} />
-          <Star color="yellow" title="minimize" onClick={() => {}} />
+          <Star color="red" title={`close ${title}`} onClick={() => beginHide('close')} />
+          <Star color="yellow" title="minimize" onClick={() => beginHide('minimize')} />
           <Star color="green" title="zoom" onClick={() => {}} />
         </div>
         <span className="window-title">{title}</span>

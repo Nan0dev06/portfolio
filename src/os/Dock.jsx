@@ -12,14 +12,14 @@ const APPS = [
 
 export default function Dock() {
   const windows = useOS((s) => s.windows)
-  const openWindow = useOS((s) => s.openWindow)
+  const toggleWindow = useOS((s) => s.toggleWindow)
 
   return (
     <div className="dock">
       {APPS.map((app) => {
         const Glyph = ICONS[app.kind]
         return (
-          <button key={app.id} className="dock-item" title={app.label} onClick={() => openWindow(app.id)}>
+          <button key={app.id} className="dock-item" title={app.label} onClick={() => toggleWindow(app.id)}>
             <span className="dock-glyph">
               <Glyph />
             </span>
