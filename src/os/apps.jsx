@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { profile, projects } from './data'
+import PdfThumb from './PdfThumb.jsx'
 
 export function About() {
   return (
@@ -45,11 +46,13 @@ export function Projects() {
 export function Resume() {
   return (
     <div className="app-resume">
-      <p>my resume — a proper embedded pdf viewer is coming here.</p>
       {profile.resumeUrl ? (
-        <a className="btn" href={profile.resumeUrl} target="_blank" rel="noreferrer">
-          download resume.pdf
-        </a>
+        <>
+          <PdfThumb url={profile.resumeUrl} />
+          <a className="btn" href={profile.resumeUrl} target="_blank" rel="noreferrer" download>
+            download resume.pdf
+          </a>
+        </>
       ) : (
         <p className="muted">
           (placeholder — drop <code>resume.pdf</code> into <code>/public</code> and set{' '}

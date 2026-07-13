@@ -23,6 +23,7 @@ export default function Window({ id, title, width = 460, children }) {
   const hideTimer = useRef(null)
   // 'close' | 'minimize' | null — which exit animation (if any) is playing
   const [hiding, setHiding] = useState(null)
+  const [maximized, setMaximized] = useState(false)
 
   useEffect(() => () => clearTimeout(hideTimer.current), [])
 
@@ -43,6 +44,7 @@ export default function Window({ id, title, width = 460, children }) {
   }
 
   const onTitlePointerDown = (e) => {
+    if (maximized) return // dragging a maximized window doesn't make sense
     e.preventDefault()
     try {
       e.currentTarget.setPointerCapture(e.pointerId)
@@ -60,8 +62,8 @@ export default function Window({ id, title, width = 460, children }) {
 
   return (
     <div
-      className={`window ${hiding ? 'closing' : 'opening'}`}
-      style={{ left: win.x, top: win.y, zIndex: win.z, width }}
+      className={`window ${hiding ? 'closing' : 'opening'} ${maximized ? 'maximized' : ''}`}
+      style={{ zIndex: win.z, ...(maximized ? {} : { left: win.x, top: win.y, width }) }}
       onPointerDown={() => focusWindow(id)}
     >
       <div
@@ -73,7 +75,11 @@ export default function Window({ id, title, width = 460, children }) {
         <div className="win-controls">
           <Star color="red" title={`close ${title}`} onClick={() => beginHide('close')} />
           <Star color="yellow" title="minimize" onClick={() => beginHide('minimize')} />
-          <Star color="green" title="zoom" onClick={() => {}} />
+          <Star
+            color="green"
+            title={maximized ? 'restore' : 'zoom'}
+            onClick={() => setMaximized((v) => !v)}
+          />
         </div>
         <span className="window-title">{title}</span>
       </div>
