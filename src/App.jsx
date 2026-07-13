@@ -3,9 +3,12 @@ import { Canvas } from '@react-three/fiber'
 import { Loader } from '@react-three/drei'
 import Scene from './scene/Scene.jsx'
 import Overlay from './ui/Overlay.jsx'
+import { useStore } from './store'
 import './styles.css'
 
 export default function App() {
+  const phase = useStore((s) => s.phase)
+
   // Nudge react-three-fiber's resize observer, which can miss the canvas's
   // initial size on mount (leaving it stuck at the 300x150 default). Fire a few
   // times over the first second to cover slow layout / observer timing.
@@ -17,6 +20,9 @@ export default function App() {
 
   return (
     <>
+      {/* sits behind the (transparent) canvas — only visible once the laptop
+          starts opening, not while it's still closed on the mat */}
+      <div className={`enter-bg ${phase !== 'closed' ? 'show' : ''}`} />
       <Canvas
         dpr={[1, 2]}
         camera={{ position: [0, 4.9, 0.6], fov: 40 }}

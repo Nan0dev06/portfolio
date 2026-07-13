@@ -10,7 +10,7 @@ body,
   height: 100%;
 }
 body {
-  background: #0b0b0d url("/enter_bg.jpg") center / cover no-repeat;
+  background: #0b0b0d;
   overflow: hidden;
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   cursor:
@@ -19,6 +19,21 @@ body {
 }
 canvas {
   display: block;
+}
+
+/* liminal room photo — hidden while the laptop is closed, fades in only once
+   it starts opening; shows through the transparent canvas around the 3D
+   laptop as the camera dives in, then gets fully covered by the OS/.page */
+.enter-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: #0a0b0d url("/enter_bg.jpg") center / cover no-repeat;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+.enter-bg.show {
+  opacity: 1;
 }
 
 /* "click the laptop" hint, shown only while the laptop is closed */
