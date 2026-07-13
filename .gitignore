@@ -7,3 +7,5 @@ dist
 images_stickers/
 os_background/
 os_login_screen/
+
+.vercel
