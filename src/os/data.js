@@ -27,21 +27,27 @@ export const languages = [
 
 export const projects = [
   {
+    name: 'ClearHead',
+    desc: 'an AI cognitive-load manager that turns vague goals into milestone-based plans and tracks real-time distraction during work sessions — finalist, USAII Global AI Hackathon 2026.',
+    link: 'https://github.com/Nan0dev06/ClearHead',
+    tags: ['react', 'llm', 'chrome extension'],
+  },
+  {
     name: 'terminal portfolio',
-    desc: 'an ssh-able portfolio that runs in your terminal — no browser needed.',
-    link: 'https://github.com/Nan0dev06',
+    desc: 'an ssh-able portfolio that runs live inside your terminal — no browser needed.',
+    link: 'https://github.com/Nan0dev06/terminal-portfolio',
     tags: ['python', 'ssh', 'textual'],
   },
   {
-    name: 'this website',
-    desc: 'a 3d laptop that opens into its own tiny operating system.',
-    link: 'https://github.com/Nan0dev06/portfolio',
-    tags: ['react', 'three.js', 'r3f'],
+    name: 'pixel portrait',
+    desc: 'turns a photo into a one-color-per-block pixel grid for hand-drawn retro portraits — built for my uncle.',
+    link: 'https://github.com/Nan0dev06/pixel-portrait',
+    tags: ['javascript', 'canvas'],
   },
   {
-    name: 'project three',
-    desc: 'placeholder — describe another project here.',
-    link: null,
-    tags: ['tag'],
+    name: 'Café Lumière',
+    desc: 'a Java Swing desktop app for small-business café management — order entry, inventory, and revenue reporting.',
+    link: 'https://github.com/Nan0dev06/Coffee_Shop_Managment_System',
+    tags: ['java', 'swing'],
   },
 ]
