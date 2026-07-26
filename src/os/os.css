@@ -404,7 +404,99 @@
   box-shadow: 0 8px 24px rgba(5, 8, 40, 0.35);
 }
 
-/* ═══ PAINT APP (about me) ════════════════════════════════════════════════ */
+/* ═══ TERMINAL (nanosh + the terminal-portfolio TUI) ══════════════════════ */
+.term {
+  margin: -16px;
+  padding: 12px 14px;
+  height: 340px;
+  overflow-y: auto;
+  background: #05070f;
+  color: #cfe3ff;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, "DejaVu Sans Mono", monospace;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  cursor: text;
+}
+.term-line { white-space: pre-wrap; word-break: break-word; }
+.term-hint {
+  display: block;
+  margin: 10px 0;
+  padding: 5px 9px;
+  font: inherit;
+  text-align: left;
+  color: #39ff88;
+  background: rgba(57, 255, 136, 0.07);
+  border: 1px dashed rgba(57, 255, 136, 0.5);
+  border-radius: 5px;
+  cursor: pointer;
+}
+.term-hint:hover { background: rgba(57, 255, 136, 0.16); }
+.term-hint code { font: inherit; color: #fff; }
+.term-prompt { display: flex; gap: 8px; align-items: baseline; }
+.term-ps1 { color: #39ff88; flex: none; }
+.term-input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  outline: none;
+  padding: 0;
+}
+
+/* the TUI itself — a character grid, so every box is sized in ch/em and the
+   root font-size is fitted to the window width by Terminal.jsx */
+.tui {
+  margin: -16px;
+  height: 340px;
+  padding: 0.5em 0;
+  overflow: auto;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, "DejaVu Sans Mono", monospace;
+  line-height: 1.05;
+  outline: none;
+  cursor: default;
+}
+.tui pre { font: inherit; margin: 0; }
+.tui-binary { text-align: center; opacity: 0.85; white-space: nowrap; }
+/* exactly TUI_COLS wide (see Terminal.jsx) — border-box everywhere so the
+   column arithmetic holds and nothing can push the grid wider than the fit */
+.tui-main { display: flex; width: 107ch; padding-top: 2em; }
+.tui-main > * { box-sizing: border-box; }
+.tui-portrait { flex: none; width: 65ch; padding-left: 5ch; }
+.tui-right { flex: 1; min-width: 0; padding-left: 2ch; overflow: hidden; }
+/* phones: the portrait alone is 65 cols, which forces a ~6px font — drop it so
+   the bio and links stay readable (see NARROW_PX in Terminal.jsx) */
+.tui.narrow .tui-main { width: 42ch; padding-top: 1em; }
+.tui.narrow .tui-portrait { display: none; }
+.tui.narrow .tui-right { padding-left: 1ch; }
+.tui.narrow .tui-binary { display: none; }
+.tui-figlet { color: var(--tui-accent); }
+.tui-bio { white-space: pre-wrap; padding-top: 1em; }
+.tui-links { padding-top: 1em; white-space: pre; }
+.tui-rule { color: var(--tui-dim); }
+.tui-links b { font-weight: 700; }
+.tui-links a { color: var(--tui-accent); text-decoration: underline; }
+.tui-footer {
+  display: flex;
+  gap: 2ch;
+  align-items: center;
+  margin-top: 1em;
+  padding: 0.3em 1ch;
+  border-top: 1px solid var(--tui-dim);
+}
+.tui-footer button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.tui-footer kbd { font: inherit; font-weight: 700; color: var(--tui-accent); }
+.tui-theme-name { margin-left: auto; opacity: 0.75; }
+
+/* ═══ PAINT APP ═══════════════════════════════════════════════════════════ */
 .paint { margin: -16px; }
 .paint-menu {
   display: flex; gap: 16px;
@@ -415,9 +507,7 @@
 }
 .paint-menu span { cursor: default; }
 .paint-menu span:hover { color: var(--blue); }
-.paint-about { padding: 12px 14px 6px; font-size: 0.84rem; }
-.paint-about p { margin-top: 4px; opacity: 0.8; }
-.paint-stage { display: flex; gap: 12px; padding: 6px 14px 16px; }
+.paint-stage { display: flex; gap: 12px; padding: 12px 14px 16px; }
 .paint-tools { display: flex; flex-direction: column; gap: 10px; }
 .swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; }
 .swatch { width: 22px; height: 22px; border-radius: 5px; border: 2px solid rgba(10,14,42,0.25); cursor: pointer; }

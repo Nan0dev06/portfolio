@@ -15,6 +15,16 @@ export const profile = {
   resumeUrl: '/resume.pdf',
 }
 
+// the bio the terminal types out, character by character — kept verbatim from
+// the real terminal-portfolio (TypingText in portfolio.py) so the two match
+export const terminalBio = `Nour Al Shami is a computer science student at USAL, building toward AI Engineering.
+
+Drawn to machine perception, computer vision, and creative sides of code.
+
+When not coding, she is deep in game lore or failing to teach her cat new tricks.
+
+Currently exploring the world of humanoid robotics and AI research.`
+
 // languages / tech that spill out of the desktop folder
 export const languages = [
   { code: 'Ja', name: 'Java', color: '#f89820', dark: true },

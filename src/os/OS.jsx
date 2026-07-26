@@ -6,6 +6,7 @@ import DesktopIcons from './DesktopIcons.jsx'
 import AsciiSky from './AsciiSky.jsx'
 import Login from './Login.jsx'
 import Paint from './Paint.jsx'
+import Terminal from './Terminal.jsx'
 import { Projects, Resume, Contact, Guestbook } from './apps.jsx'
 import './os.css'
 
@@ -28,7 +29,10 @@ export default function OS() {
       <MenuBar />
       <DesktopIcons />
 
-      <Window id="about" title="about_me.paint" width={520}>
+      <Window id="terminal" title="terminal — nanosh" width={760}>
+        <Terminal />
+      </Window>
+      <Window id="paint" title="paint.exe" width={520}>
         <Paint />
       </Window>
       <Window id="projects" title="projects" width={520}>

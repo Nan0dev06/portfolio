@@ -3,7 +3,8 @@ import { ICONS } from './icons.jsx'
 
 // Same kinds as the desktop icons so the artwork matches everywhere.
 const APPS = [
-  { id: 'about', label: 'about me', kind: 'paint' },
+  { id: 'terminal', label: 'terminal', kind: 'terminal' },
+  { id: 'paint', label: 'paint', kind: 'paint' },
   { id: 'projects', label: 'projects', kind: 'folder' },
   { id: 'resume', label: 'resume', kind: 'file' },
   { id: 'contact', label: 'contact', kind: 'envelope' },

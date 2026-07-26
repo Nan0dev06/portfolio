@@ -97,6 +97,22 @@ export function Paint() {
   )
 }
 
+export function TerminalIcon() {
+  return (
+    <svg viewBox="0 0 64 64" className="ic3d">
+      <Defs id="tm" from="#3b4468" mid="#141a35" to="#070b1c" />
+      <Shadow />
+      <rect x="6" y="10" width="52" height="42" rx="6" fill={`url(#tm-body)`} stroke="#0a1490" strokeWidth="1.2" />
+      <rect x="11" y="15" width="42" height="32" rx="3" fill="#050914" />
+      <g fill="none" stroke="#39ff88" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 24l6 5-6 5" />
+        <path d="M29 36h12" />
+      </g>
+      <path d="M8 12h48v9c-14 4-34 4-48 0z" fill="#fff" opacity="0.14" />
+    </svg>
+  )
+}
+
 export function Github() {
   return (
     <svg viewBox="0 0 64 64" className="ic3d">
@@ -129,6 +145,7 @@ export function Linkedin() {
 }
 
 export const ICONS = {
+  terminal: TerminalIcon,
   paint: Paint,
   folder: Folder,
   file: FileDoc,

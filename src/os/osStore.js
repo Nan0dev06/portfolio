@@ -2,7 +2,8 @@ import { create } from "zustand";
 
 // window manager state
 const initialWindows = {
-  about: { open: false, minimized: false, x: 120, y: 90, z: 1 },
+  terminal: { open: false, minimized: false, x: 120, y: 70, z: 1 },
+  paint: { open: false, minimized: false, x: 120, y: 90, z: 1 },
   projects: { open: false, minimized: false, x: 220, y: 130, z: 1 },
   resume: { open: false, minimized: false, x: 300, y: 110, z: 1 },
   contact: { open: false, minimized: false, x: 260, y: 170, z: 1 },
@@ -12,7 +13,8 @@ const initialWindows = {
 // desktop icons — kind picks the shared glossy glyph; `link` opens a URL
 // instead of a window. x/y come from layoutIcons() below.
 const iconDefs = {
-  about: { label: "about_me", kind: "paint" },
+  terminal: { label: "terminal", kind: "terminal" },
+  paint: { label: "paint", kind: "paint" },
   projects: { label: "projects", kind: "folder" },
   resume: { label: "resume", kind: "file" },
   contact: { label: "contact", kind: "envelope" },
@@ -32,7 +34,8 @@ const iconDefs = {
 
 // scattered layout, designed for a ≥900px-wide desktop (px from top-left)
 const scatterPos = {
-  about: { x: 70, y: 110 },
+  terminal: { x: 70, y: 110 },
+  paint: { x: 400, y: 220 },
   projects: { x: 250, y: 80 },
   resume: { x: 150, y: 300 },
   contact: { x: 470, y: 150 },

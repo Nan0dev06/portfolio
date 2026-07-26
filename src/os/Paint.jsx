@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { profile } from './data'
 
 const SWATCHES = ['#0a0e2a', '#2530ff', '#4b8bff', '#00e5ff', '#ff3ea5', '#ffd23e', '#39ff88', '#ffffff']
 const SIZES = [2, 5, 10]
 
-// About Me, styled as a Y2K paint program. Real drawable canvas + undo (no eraser).
+// Y2K paint program — real drawable canvas + undo (no eraser).
 export default function Paint() {
   const canvasRef = useRef(null)
   const strokes = useRef([])
@@ -67,11 +66,6 @@ export default function Paint() {
         {['File', 'Edit', 'View', 'Help'].map((m) => (
           <span key={m}>{m}</span>
         ))}
-      </div>
-
-      <div className="paint-about">
-        <b>{profile.name}</b> — {profile.title}
-        <p>{profile.about?.[0]}</p>
       </div>
 
       <div className="paint-stage">
