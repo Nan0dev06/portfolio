@@ -17,12 +17,8 @@ export const profile = {
 
 // languages / tech that spill out of the desktop folder
 export const languages = [
-  { code: 'JS', name: 'JavaScript', color: '#f7df1e', dark: true },
+  { code: 'Ja', name: 'Java', color: '#f89820', dark: true },
   { code: 'Py', name: 'Python', color: '#3776ab' },
-  { code: 'C++', name: 'C++', color: '#659ad2' },
-  { code: '</>', name: 'HTML/CSS', color: '#e2725b' },
-  { code: 'Re', name: 'React', color: '#61dafb', dark: true },
-  { code: 'SQL', name: 'SQL', color: '#8a6fbf' },
 ]
 
 export const projects = [
@@ -31,6 +27,12 @@ export const projects = [
     desc: 'an AI cognitive-load manager that turns vague goals into milestone-based plans and tracks real-time distraction during work sessions — finalist, USAII Global AI Hackathon 2026.',
     link: 'https://github.com/Nan0dev06/ClearHead',
     tags: ['react', 'llm', 'chrome extension'],
+  },
+  {
+    name: 'Nudgy',
+    desc: 'an agentic group scheduling assistant — finds when a group is free, proposes a time, runs a poll, and books it on everyone\'s calendar.',
+    link: 'https://github.com/Nan0dev06/Nudgy_Shared_Calendar_Ai_Agent',
+    tags: ['python', 'fastapi', 'llm agent'],
   },
   {
     name: 'terminal portfolio',
