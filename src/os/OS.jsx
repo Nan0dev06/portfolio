@@ -29,7 +29,7 @@ export default function OS() {
       <MenuBar />
       <DesktopIcons />
 
-      <Window id="terminal" title="terminal — nanosh" width={760}>
+      <Window id="terminal" title="terminal — nanosh" width={760} height={520} bare>
         <Terminal />
       </Window>
       <Window id="paint" title="paint.exe" width={520}>

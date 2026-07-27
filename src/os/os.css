@@ -248,6 +248,8 @@
 .window {
   position: absolute;
   z-index: 100;
+  display: flex;
+  flex-direction: column;
   border-radius: 12px; /* same corners as before */
   background: var(--glass);
   border: 1px solid var(--glass-line);
@@ -268,13 +270,36 @@
   bottom: 96px;
   width: auto;
   height: auto;
-  display: flex;
-  flex-direction: column;
   transition: left 0.18s ease, top 0.18s ease, right 0.18s ease, bottom 0.18s ease;
 }
-.window.maximized .window-body {
+/* once the window has a real height — maximized or user-resized — the body
+   fills it instead of hugging its content under a 60vh cap */
+.window.maximized .window-body,
+.window.sized .window-body {
   flex: 1;
+  min-height: 0;
   max-height: none;
+}
+
+/* ─── resize handles ─── */
+.win-resize { position: absolute; touch-action: none; }
+.win-resize.n { top: 0; left: 10px; right: 10px; height: 5px; cursor: ns-resize; }
+.win-resize.s { bottom: 0; left: 10px; right: 10px; height: 5px; cursor: ns-resize; }
+.win-resize.e { right: 0; top: 10px; bottom: 10px; width: 5px; cursor: ew-resize; }
+.win-resize.w { left: 0; top: 10px; bottom: 10px; width: 5px; cursor: ew-resize; }
+.win-resize.ne { top: 0; right: 0; width: 12px; height: 12px; cursor: nesw-resize; }
+.win-resize.sw { bottom: 0; left: 0; width: 12px; height: 12px; cursor: nesw-resize; }
+.win-resize.nw { top: 0; left: 0; width: 12px; height: 12px; cursor: nwse-resize; }
+.win-resize.se { bottom: 0; right: 0; width: 12px; height: 12px; cursor: nwse-resize; }
+/* faint corner grip so the bottom-right is discoverable */
+.win-resize.se::after {
+  content: '';
+  position: absolute;
+  right: 3px; bottom: 3px;
+  width: 6px; height: 6px;
+  border-right: 2px solid var(--blue);
+  border-bottom: 2px solid var(--blue);
+  opacity: 0.45;
 }
 
 .window-titlebar {
@@ -324,6 +349,8 @@
   line-height: 1.5;
   color: var(--ink);
 }
+/* apps that draw their own full-bleed surface (the terminal) */
+.window-body.bare { padding: 0; }
 
 /* ═══ DOCK ════════════════════════════════════════════════════════════════ */
 .dock {
@@ -406,7 +433,6 @@
 
 /* ═══ TERMINAL (nanosh + the terminal-portfolio TUI) ══════════════════════ */
 .term {
-  margin: -16px;
   padding: 12px 14px;
   height: 340px;
   overflow-y: auto;
@@ -448,7 +474,6 @@
 /* the TUI itself — a character grid, so every box is sized in ch/em and the
    root font-size is fitted to the window width by Terminal.jsx */
 .tui {
-  margin: -16px;
   height: 340px;
   padding: 0.5em 0;
   overflow: auto;
@@ -458,6 +483,13 @@
   cursor: default;
 }
 .tui pre { font: inherit; margin: 0; }
+/* fill the frame once it has a real height, instead of stranding the fixed
+   340px inside a tall window with dead space under it */
+.window.maximized .term, .window.sized .term,
+.window.maximized .tui, .window.sized .tui { height: 100%; }
+/* the TUI is a top-anchored character grid — centre it in a tall window
+   rather than leaving all the slack at the bottom */
+.window.maximized .tui-main, .window.sized .tui-main { margin: 0 auto; }
 .tui-binary { text-align: center; opacity: 0.85; white-space: nowrap; }
 /* exactly TUI_COLS wide (see Terminal.jsx) — border-box everywhere so the
    column arithmetic holds and nothing can push the grid wider than the fit */

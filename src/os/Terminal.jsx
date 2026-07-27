@@ -58,6 +58,13 @@ const TUI_COLS = 107
 // (42 cols) has to fit, which brings the text back to a legible size.
 const NARROW_PX = 520
 const NARROW_COLS = 42
+// total height of the grid in em, so the font can be capped by the window's
+// height as well as its width — a TUI fills its terminal, it never scrolls.
+// Wide is driven by the 30-row portrait plus header, padding and footer.
+// (measured at 38.25; rounded up because the footer's 1px border doesn't
+// scale with em and eats proportionally more at small sizes)
+const TUI_ROWS = 39
+const NARROW_ROWS = 30
 
 // width of one `ch` at the element's current font size. Measured rather than
 // derived from an assumed em ratio — that varies per monospace font, and the
@@ -91,7 +98,9 @@ function useFitFontSize(ref) {
       const cols = narrow ? NARROW_COLS : TUI_COLS
       // ch scales linearly with font-size, so this lands exactly in one pass
       const cur = parseFloat(getComputedStyle(el).fontSize)
-      setFit({ fontSize: Math.max(3.5, Math.min(16, (cur * avail) / (cols * ch))), narrow })
+      const byWidth = (cur * avail) / (cols * ch)
+      const byHeight = el.clientHeight / (narrow ? NARROW_ROWS : TUI_ROWS)
+      setFit({ fontSize: Math.max(3.5, Math.min(16, Math.min(byWidth, byHeight))), narrow })
     }
     measure()
     const ro = new ResizeObserver(measure)

@@ -115,6 +115,13 @@ export const useOS = create((set) => ({
       windows: { ...s.windows, [id]: { ...s.windows[id], x, y } },
     })),
 
+  // w/h start undefined — the window sizes itself to its content until the
+  // user drags a resize handle, after which these take over (see Window.jsx)
+  resizeWindow: (id, w, h) =>
+    set((s) => ({
+      windows: { ...s.windows, [id]: { ...s.windows[id], w, h } },
+    })),
+
   moveIcon: (id, x, y) =>
     set((s) => ({ icons: { ...s.icons, [id]: { ...s.icons[id], x, y } } })),
 
