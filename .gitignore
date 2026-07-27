@@ -9,3 +9,10 @@ os_background/
 os_login_screen/
 
 .vercel
+
+# local secrets
+.env
+.env.local
+
+# blender autosave
+*.blend1

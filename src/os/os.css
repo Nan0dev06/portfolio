@@ -23,7 +23,6 @@
 /* chrome-silver custom cursor everywhere (except drawing/typing surfaces) */
 .desktop, .login, .desktop *, .login * { cursor: url("/cursor.png") 6 3, auto; }
 .desktop .paint-canvas { cursor: crosshair; }
-.desktop .gb-form input { cursor: text; }
 
 /* ═══ POWER-ON (brief black screen before login) ══════════════════════════ */
 .power-on {
@@ -410,11 +409,6 @@
 .project-head a { color: var(--blue); font-size: 0.78rem; text-decoration: none; }
 .tags { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
 .tags span { font-size: 0.66rem; background: var(--blue); color: #fff; padding: 2px 8px; border-radius: 99px; }
-.gb-entries { max-height: 160px; overflow-y: auto; margin-bottom: 12px; }
-.gb-form { display: flex; gap: 6px; margin-bottom: 8px; }
-.gb-form input { font-family: inherit; font-size: 0.8rem; border: 1px solid var(--glass-line); border-radius: 8px; padding: 6px 10px; background: rgba(255,255,255,0.6); color: var(--ink); }
-.gb-form input:first-child { width: 90px; }
-.gb-form input:nth-child(2) { flex: 1; }
 
 .app-resume { display: flex; flex-direction: column; align-items: center; }
 /* full-width so PdfThumb measures real available space (not its own canvas
@@ -586,6 +580,4 @@
   .paint-tools { flex-direction: row; align-items: center; flex-wrap: wrap; }
   .swatches { grid-template-columns: repeat(4, 1fr); }
 
-  .gb-form { flex-wrap: wrap; }
-  .gb-form input:first-child { width: 100%; }
 }

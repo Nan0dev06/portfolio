@@ -65,23 +65,6 @@ export function Envelope() {
   )
 }
 
-export function Book() {
-  return (
-    <svg viewBox="0 0 64 64" className="ic3d">
-      <Defs id="bk" from="#a0ffd0" mid="#25d38a" to="#129c66" />
-      <Shadow />
-      <rect x="12" y="8" width="40" height="48" rx="4" fill={`url(#bk-body)`} stroke="#0c6a45" strokeWidth="1.2" />
-      <rect x="12" y="8" width="8" height="48" rx="4" fill="#0f8a5a" />
-      <g fill="#eafff4" opacity="0.9">
-        <rect x="26" y="20" width="20" height="3" rx="1.5" />
-        <rect x="26" y="28" width="20" height="3" rx="1.5" />
-        <rect x="26" y="36" width="14" height="3" rx="1.5" />
-      </g>
-      <ellipse cx="30" cy="18" rx="12" ry="5" fill={`url(#bk-shine)`} />
-    </svg>
-  )
-}
-
 export function Paint() {
   return (
     <svg viewBox="0 0 64 64" className="ic3d">
@@ -150,7 +133,6 @@ export const ICONS = {
   folder: Folder,
   file: FileDoc,
   envelope: Envelope,
-  book: Book,
   github: Github,
   linkedin: Linkedin,
 }

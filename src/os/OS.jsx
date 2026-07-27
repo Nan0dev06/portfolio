@@ -7,7 +7,7 @@ import AsciiSky from './AsciiSky.jsx'
 import Login from './Login.jsx'
 import Paint from './Paint.jsx'
 import Terminal from './Terminal.jsx'
-import { Projects, Resume, Contact, Guestbook } from './apps.jsx'
+import { Projects, Resume, Contact } from './apps.jsx'
 import './os.css'
 
 export default function OS() {
@@ -43,9 +43,6 @@ export default function OS() {
       </Window>
       <Window id="contact" title="contact">
         <Contact />
-      </Window>
-      <Window id="guestbook" title="guestbook" width={440}>
-        <Guestbook />
       </Window>
 
       <Dock />

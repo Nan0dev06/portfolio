@@ -8,7 +8,6 @@ const APPS = [
   { id: 'projects', label: 'projects', kind: 'folder' },
   { id: 'resume', label: 'resume', kind: 'file' },
   { id: 'contact', label: 'contact', kind: 'envelope' },
-  { id: 'guestbook', label: 'guestbook', kind: 'book' },
 ]
 
 export default function Dock() {
