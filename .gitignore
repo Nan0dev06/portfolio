@@ -16,3 +16,7 @@ os_login_screen/
 
 # blender autosave
 *.blend1
+
+# local tooling notes — kept on disk, not shipped with the repo
+CLAUDE.md
+.claude/
