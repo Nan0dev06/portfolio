@@ -76,7 +76,7 @@ src/
     AsciiSky.jsx       the interactive ASCII-cloud wallpaper
     Window.jsx         glass window chrome (star buttons, drag, resize, maximize)
     Dock.jsx / DesktopIcons.jsx   the two places apps launch from
-    apps.jsx           Projects / Resume / Contact
+    apps.jsx           Projects / Contact
     Terminal.jsx       nanosh + the terminal-portfolio TUI re-creation
     portrait.txt       the ASCII portrait the TUI renders
     Paint.jsx          drawable-canvas paint app
