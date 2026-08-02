@@ -92,16 +92,4 @@ public/
 **To edit your own content** (name, bio, projects), the only file you need is
 [`src/os/data.js`](src/os/data.js).
 
-## assets not in git
 
-A few raw/source asset folders are intentionally gitignored — the site only
-ships the optimized copies already sitting in `public/`:
-
-```
-3d_models/        raw .glb + zips before compression
-images_stickers/  original sticker PNGs
-os_background/    old desktop background source
-os_login_screen/  source videos for the login screen
-```
-
-If you're rebuilding those, see the corresponding files under `public/`.
