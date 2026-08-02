@@ -24,12 +24,6 @@ When not coding, she is deep in game lore or failing to teach her cat new tricks
 
 Currently exploring the world of humanoid robotics and AI research.`
 
-// languages / tech that spill out of the desktop folder
-export const languages = [
-  { code: 'Ja', name: 'Java', color: '#f89820', dark: true },
-  { code: 'Py', name: 'Python', color: '#3776ab' },
-]
-
 export const projects = [
   {
     name: 'ClearHead',

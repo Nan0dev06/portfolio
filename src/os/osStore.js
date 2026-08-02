@@ -15,7 +15,6 @@ const iconDefs = {
   paint: { label: "paint", kind: "paint" },
   projects: { label: "projects", kind: "folder" },
   contact: { label: "contact", kind: "envelope" },
-  languages: { label: "languages", kind: "folder" },
   github: {
     label: "github",
     kind: "github",
@@ -34,7 +33,6 @@ const scatterPos = {
   paint: { x: 400, y: 220 },
   projects: { x: 250, y: 80 },
   contact: { x: 470, y: 150 },
-  languages: { x: 650, y: 110 },
   github: { x: 590, y: 320 },
   linkedin: { x: 760, y: 300 },
 };
