@@ -16,24 +16,34 @@ Instead of a normal scrolling one-pager, the site is a desktop metaphor:
 2. **Login** — a short animated "logging in" sequence (video background +
    spinning globe avatar + auto-typed password), no real input required.
 3. **nanoOS** — the actual portfolio: draggable desktop icons, glass windows
-   with working traffic-light controls (close / minimize / maximize), a
-   dock, an interactive ASCII-cloud wallpaper, and a handful of little apps:
-   - **about_me** — a working MS-Paint-style app with a real drawable canvas
+   that drag, resize (eight edge/corner handles) and have working
+   traffic-light controls (close / minimize / maximize), a dock, an
+   interactive ASCII-cloud wallpaper, and a handful of little apps:
+   - **terminal** — a fake `nanosh` shell where `ssh nano@nanoterminal`
+     connects to a browser re-creation of the real
+     [terminal-portfolio](https://github.com/Nan0dev06/terminal-portfolio)
+     TUI: ASCII portrait, figlet title, typed-out bio, `t` cycles the six
+     themes, `q` disconnects. This is the about-me.
+   - **paint** — a Y2K MS-Paint-style app with a real drawable canvas
    - **projects** — cards for real GitHub projects
    - **resume** — renders the résumé PDF as an inline preview + download
    - **contact** — email / GitHub
-   - **guestbook** — sign-the-guestbook (currently local-only)
    - **languages** — a folder that spills its contents across the desktop
+
+It's also responsive: below ~900px the scattered desktop icons fall back to
+a grid, windows and icons clamp themselves onto the visible screen, and the
+terminal drops its portrait column so the TUI text stays legible on a phone.
 
 ## stack
 
 - **React + Vite**
 - **`@react-three/fiber`** / **`@react-three/drei`** / **`three`** — the 3D desk scene
 - **`zustand`** — two small stores: `store.js` (3D intro phase) and
-  `src/os/osStore.js` (window manager: open/close/minimize/maximize/drag/z-order)
+  `src/os/osStore.js` (window manager:
+  open/close/minimize/maximize/drag/resize/z-order)
 - **`pdfjs-dist`** — renders the résumé PDF onto a `<canvas>` for the preview
 
-No backend yet — the guestbook is local-only until it's wired up.
+No backend — everything is static and runs in the browser.
 
 ## running it locally
 
@@ -59,14 +69,21 @@ src/
   scene/               the 3D desk — laptop, mat, props, camera
   ui/Overlay.jsx       the fullscreen page that fades in and mounts the OS
   os/
-    osStore.js         window manager state (open/close/minimize/z-order/drag)
+    osStore.js         window manager state (open/close/minimize/z-order/drag/resize)
     OS.jsx             power-on → Login → desktop
     Login.jsx          animated login screen
-    Window.jsx          glass window chrome (star buttons, drag, maximize)
+    MenuBar.jsx        top bar (nanoOS label + clock)
+    AsciiSky.jsx       the interactive ASCII-cloud wallpaper
+    Window.jsx         glass window chrome (star buttons, drag, resize, maximize)
     Dock.jsx / DesktopIcons.jsx   the two places apps launch from
-    apps.jsx           Projects / Resume / Contact / Guestbook
-    Paint.jsx           the about-me app (drawable canvas)
-    data.js            ALL personal content — profile, projects, languages
+    apps.jsx           Projects / Resume / Contact
+    Terminal.jsx       nanosh + the terminal-portfolio TUI re-creation
+    portrait.txt       the ASCII portrait the TUI renders
+    Paint.jsx          drawable-canvas paint app
+    PdfThumb.jsx       pdf.js → <canvas> résumé preview
+    icons.jsx          the shared glossy 3D icon glyphs
+    useViewport.js     live viewport size + clamp helper (responsive layout)
+    data.js            ALL personal content — profile, bio, projects, languages
 public/
   models/              3D prop models (.glb)
   stickers/            laptop-lid sticker PNGs
