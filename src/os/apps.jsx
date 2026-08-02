@@ -2,22 +2,6 @@ import { profile, projects } from './data'
 import { useOS } from './osStore'
 import PdfThumb from './PdfThumb.jsx'
 
-export function About() {
-  return (
-    <div className="app-about">
-      <div className="avatar">
-        {profile.avatar ? <img src={profile.avatar} alt={profile.name} /> : <span>🙂</span>}
-      </div>
-      <h2>
-        {profile.name} <small>· {profile.title}</small>
-      </h2>
-      {profile.about.map((p, i) => (
-        <p key={i}>{p}</p>
-      ))}
-    </div>
-  )
-}
-
 export function Projects() {
   return (
     <div className="app-projects">
