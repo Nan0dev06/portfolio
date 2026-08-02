@@ -18,10 +18,10 @@ only.
 
 ## Where content lives
 
-All personal content — name, bio, projects, résumé path, languages — is
-centralized in [`src/os/data.js`](src/os/data.js). If asked to update "the
-about me" / "the projects" / "my resume", this is almost always the file to
-edit, not the component files.
+All personal content — name, bio, projects — is centralized in
+[`src/os/data.js`](src/os/data.js). If asked to update "the about me" / "the
+projects", this is almost always the file to edit, not the component files.
+The about-me copy the terminal types out is `terminalBio` in that same file.
 
 ## Dev workflow
 
@@ -58,9 +58,8 @@ underneath it, regardless of z-index. This exact bug (desktop-icons
 container blocking window close buttons) cost a long debugging session —
 don't reintroduce it.
 
-Z-index layering, low to high: ascii-sky (0) → desktop-icons (10) → lang
-chips (12) → windows (20+, dynamic via `osStore`'s `topZ`) → dock/menubar
-(500).
+Z-index layering, low to high: ascii-sky (0) → desktop-icons (10) → windows
+(20+, dynamic via `osStore`'s `topZ`) → dock/menubar (500).
 
 ## Gitignored raw asset folders
 

@@ -26,9 +26,10 @@ Instead of a normal scrolling one-pager, the site is a desktop metaphor:
      themes, `q` disconnects. This is the about-me.
    - **paint** — a Y2K MS-Paint-style app with a real drawable canvas
    - **projects** — cards for real GitHub projects
-   - **resume** — renders the résumé PDF as an inline preview + download
    - **contact** — email / GitHub
-   - **languages** — a folder that spills its contents across the desktop
+
+   Plus GitHub and LinkedIn desktop shortcuts that open straight out to the
+   real thing.
 
 It's also responsive: below ~900px the scattered desktop icons fall back to
 a grid, windows and icons clamp themselves onto the visible screen, and the
@@ -41,7 +42,6 @@ terminal drops its portrait column so the TUI text stays legible on a phone.
 - **`zustand`** — two small stores: `store.js` (3D intro phase) and
   `src/os/osStore.js` (window manager:
   open/close/minimize/maximize/drag/resize/z-order)
-- **`pdfjs-dist`** — renders the résumé PDF onto a `<canvas>` for the preview
 
 No backend — everything is static and runs in the browser.
 
@@ -80,18 +80,17 @@ src/
     Terminal.jsx       nanosh + the terminal-portfolio TUI re-creation
     portrait.txt       the ASCII portrait the TUI renders
     Paint.jsx          drawable-canvas paint app
-    PdfThumb.jsx       pdf.js → <canvas> résumé preview
     icons.jsx          the shared glossy 3D icon glyphs
     useViewport.js     live viewport size + clamp helper (responsive layout)
-    data.js            ALL personal content — profile, bio, projects, languages
+    data.js            ALL personal content — profile, bio, projects
 public/
   models/              3D prop models (.glb)
   stickers/            laptop-lid sticker PNGs
-  resume.pdf, cursor.png, login_bg.mp4, globe.mp4, ...
+  cursor.png, login_bg.mp4, globe.mp4, enter_bg.jpg, ...
 ```
 
-**To edit your own content** (name, bio, projects, résumé, languages), the
-only file you need is [`src/os/data.js`](src/os/data.js).
+**To edit your own content** (name, bio, projects), the only file you need is
+[`src/os/data.js`](src/os/data.js).
 
 ## assets not in git
 
