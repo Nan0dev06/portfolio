@@ -2,43 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useOS } from './osStore'
 import { useViewport, clamp } from './useViewport'
 
-// same safe-area the CSS .maximized rule uses (menu bar / dock clearance)
-const DESKTOP_MARGIN = { left: 16, top: 40, right: 16, bottom: 96 }
-// rough non-content chrome inside a window: titlebar + body padding, plus
-// (for content like a PDF preview) room for a caption/button below it. Kept
-// generous on purpose — undershooting leaves a small gap, but overshooting
-// makes the content overflow into a scrollbar, which shrinks the available
-// width and re-triggers the resize observer in a feedback loop.
-const CHROME = { w: 48, h: 170 }
-
-// largest box matching `aspect` (height/width) that fits the desktop's safe
-// area once CHROME is subtracted — so maximizing hugs the actual content
-// (e.g. a PDF page) instead of stretching a generic rectangle around it.
-function fitToContent(aspect) {
-  const availW = window.innerWidth - DESKTOP_MARGIN.left - DESKTOP_MARGIN.right
-  const availH = window.innerHeight - DESKTOP_MARGIN.top - DESKTOP_MARGIN.bottom
-  const contentAvailW = availW - CHROME.w
-  const contentAvailH = availH - CHROME.h
-
-  let contentW, contentH
-  if (contentAvailH / contentAvailW > aspect) {
-    contentW = contentAvailW
-    contentH = contentW * aspect
-  } else {
-    contentH = contentAvailH
-    contentW = contentH / aspect
-  }
-
-  const w = contentW + CHROME.w
-  const h = contentH + CHROME.h
-  return {
-    left: DESKTOP_MARGIN.left + (availW - w) / 2,
-    top: DESKTOP_MARGIN.top + (availH - h) / 2,
-    width: w,
-    height: h,
-  }
-}
-
 function Star({ onClick, title, color }) {
   return (
     <button
@@ -84,22 +47,8 @@ export default function Window({
   // 'close' | 'minimize' | null — which exit animation (if any) is playing
   const [hiding, setHiding] = useState(null)
   const [maximized, setMaximized] = useState(false)
-  const [fitRect, setFitRect] = useState(null)
 
   useEffect(() => () => clearTimeout(hideTimer.current), [])
-
-  // when maximizing content with a known aspect ratio (e.g. a PDF page),
-  // hug that shape instead of using the generic full-rect .maximized CSS
-  useEffect(() => {
-    if (!maximized || !win.contentAspect) {
-      setFitRect(null)
-      return
-    }
-    const update = () => setFitRect(fitToContent(win.contentAspect))
-    update()
-    window.addEventListener('resize', update)
-    return () => window.removeEventListener('resize', update)
-  }, [maximized, win.contentAspect])
 
   const visible = win.open && !win.minimized
   if (!visible && !hiding) return null
@@ -193,9 +142,7 @@ export default function Window({
       }`}
       style={{
         zIndex: win.z,
-        ...(maximized
-          ? fitRect || {}
-          : { left: winLeft, top: winTop, width: winWidth, height: winHeight }),
+        ...(maximized ? {} : { left: winLeft, top: winTop, width: winWidth, height: winHeight }),
       }}
       onPointerDown={() => focusWindow(id)}
     >

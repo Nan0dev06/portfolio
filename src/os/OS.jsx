@@ -7,7 +7,7 @@ import AsciiSky from './AsciiSky.jsx'
 import Login from './Login.jsx'
 import Paint from './Paint.jsx'
 import Terminal from './Terminal.jsx'
-import { Projects, Resume, Contact } from './apps.jsx'
+import { Projects, Contact } from './apps.jsx'
 import './os.css'
 
 export default function OS() {
@@ -37,9 +37,6 @@ export default function OS() {
       </Window>
       <Window id="projects" title="projects" width={520}>
         <Projects />
-      </Window>
-      <Window id="resume" title="resume.exe">
-        <Resume />
       </Window>
       <Window id="contact" title="contact">
         <Contact />

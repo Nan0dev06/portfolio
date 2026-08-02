@@ -1,6 +1,4 @@
 import { profile, projects } from './data'
-import { useOS } from './osStore'
-import PdfThumb from './PdfThumb.jsx'
 
 export function Projects() {
   return (
@@ -23,27 +21,6 @@ export function Projects() {
           </div>
         </div>
       ))}
-    </div>
-  )
-}
-
-export function Resume() {
-  const setContentAspect = useOS((s) => s.setContentAspect)
-  return (
-    <div className="app-resume">
-      {profile.resumeUrl ? (
-        <>
-          <PdfThumb url={profile.resumeUrl} onAspectRatio={(r) => setContentAspect('resume', r)} />
-          <a className="btn" href={profile.resumeUrl} target="_blank" rel="noreferrer" download>
-            download resume.pdf
-          </a>
-        </>
-      ) : (
-        <p className="muted">
-          (placeholder — drop <code>resume.pdf</code> into <code>/public</code> and set{' '}
-          <code>resumeUrl</code> in <code>src/os/data.js</code>)
-        </p>
-      )}
     </div>
   )
 }

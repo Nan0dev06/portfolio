@@ -5,7 +5,6 @@ const initialWindows = {
   terminal: { open: false, minimized: false, x: 120, y: 70, z: 1 },
   paint: { open: false, minimized: false, x: 120, y: 90, z: 1 },
   projects: { open: false, minimized: false, x: 220, y: 130, z: 1 },
-  resume: { open: false, minimized: false, x: 300, y: 110, z: 1 },
   contact: { open: false, minimized: false, x: 260, y: 170, z: 1 },
 };
 
@@ -15,7 +14,6 @@ const iconDefs = {
   terminal: { label: "terminal", kind: "terminal" },
   paint: { label: "paint", kind: "paint" },
   projects: { label: "projects", kind: "folder" },
-  resume: { label: "resume", kind: "file" },
   contact: { label: "contact", kind: "envelope" },
   languages: { label: "languages", kind: "folder" },
   github: {
@@ -35,7 +33,6 @@ const scatterPos = {
   terminal: { x: 70, y: 110 },
   paint: { x: 400, y: 220 },
   projects: { x: 250, y: 80 },
-  resume: { x: 150, y: 300 },
   contact: { x: 470, y: 150 },
   languages: { x: 650, y: 110 },
   github: { x: 590, y: 320 },
@@ -121,10 +118,4 @@ export const useOS = create((set) => ({
 
   moveIcon: (id, x, y) =>
     set((s) => ({ icons: { ...s.icons, [id]: { ...s.icons[id], x, y } } })),
-
-  // intrinsic height/width ratio of a window's content (e.g. a PDF page) —
-  // lets maximize hug the content's real shape instead of stretching a
-  // generic rectangle around it (see Window.jsx)
-  setContentAspect: (id, ratio) =>
-    set((s) => ({ windows: { ...s.windows, [id]: { ...s.windows[id], contentAspect: ratio } } })),
 }));

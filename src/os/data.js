@@ -12,7 +12,6 @@ export const profile = {
   ],
   email: 'nano.06dev@gmail.com',
   github: 'https://github.com/Nan0dev06',
-  resumeUrl: '/resume.pdf',
 }
 
 // the bio the terminal types out, character by character — kept verbatim from

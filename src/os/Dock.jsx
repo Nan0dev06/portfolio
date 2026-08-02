@@ -6,7 +6,6 @@ const APPS = [
   { id: 'terminal', label: 'terminal', kind: 'terminal' },
   { id: 'paint', label: 'paint', kind: 'paint' },
   { id: 'projects', label: 'projects', kind: 'folder' },
-  { id: 'resume', label: 'resume', kind: 'file' },
   { id: 'contact', label: 'contact', kind: 'envelope' },
 ]
 
