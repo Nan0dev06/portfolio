@@ -2,18 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { useOS } from './osStore'
 import { useViewport, clamp } from './useViewport'
 
-function Star({ onClick, title, color }) {
+function Dot({ onClick, title, color }) {
   return (
     <button
-      className={`star-btn ${color}`}
+      className={`win-btn ${color}`}
       title={title}
       onPointerDown={(e) => e.stopPropagation()}
       onClick={onClick}
-    >
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 2l2.9 6.2 6.8.8-5 4.6 1.3 6.7L12 17.8 5.9 20.3l1.3-6.7-5-4.6 6.8-.8z" />
-      </svg>
-    </button>
+    />
   )
 }
 
@@ -153,9 +149,9 @@ export default function Window({
         onPointerUp={onTitlePointerUp}
       >
         <div className="win-controls">
-          <Star color="red" title={`close ${title}`} onClick={() => beginHide('close')} />
-          <Star color="yellow" title="minimize" onClick={() => beginHide('minimize')} />
-          <Star
+          <Dot color="red" title={`close ${title}`} onClick={() => beginHide('close')} />
+          <Dot color="yellow" title="minimize" onClick={() => beginHide('minimize')} />
+          <Dot
             color="green"
             title={maximized ? 'restore' : 'zoom'}
             onClick={() => setMaximized((v) => !v)}

@@ -295,26 +295,32 @@
   color: #eaf0ff;
   text-transform: lowercase;
 }
-.win-controls { display: flex; gap: 5px; }
-.star-btn {
-  width: 20px; height: 20px;
+.win-controls { display: flex; gap: 4px; }
+/* the button box is the hit target (28px); the circle it paints is 20px */
+.win-btn {
+  width: 28px; height: 28px;
   display: grid; place-items: center;
   padding: 0;
   background: none;
   border: none;
   cursor: pointer;
 }
-.star-btn svg { width: 16px; height: 16px; }
-.star-btn svg path {
+.win-btn::before {
+  content: '';
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
   transition: filter 0.12s, transform 0.12s;
-  stroke: rgba(0, 0, 0, 0.25);
-  stroke-width: 0.5;
 }
-.star-btn.red svg path { fill: #ff5f57; }
-.star-btn.yellow svg path { fill: #febc2e; }
-.star-btn.green svg path { fill: #28c840; }
-.star-btn:hover svg path { filter: brightness(1.25) drop-shadow(0 0 3px currentColor); }
-.star-btn:active svg { transform: scale(0.82); }
+.win-btn.red { color: #ff5f57; }
+.win-btn.yellow { color: #febc2e; }
+.win-btn.green { color: #28c840; }
+.win-btn:hover::before {
+  filter: brightness(1.25);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25), 0 0 6px currentColor;
+}
+.win-btn:active::before { transform: scale(0.82); }
 
 .window-body {
   padding: 16px;
