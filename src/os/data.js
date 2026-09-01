@@ -32,22 +32,16 @@ export const projects = [
     tags: ['react', 'llm', 'chrome extension'],
   },
   {
+    name: 'Check On',
+    desc: 'catches prescribing cascades before the next prescription is written — pairs an NHANES-trained frailty baseline with live openFDA adverse-event signals, so a new symptom gets linked back to the drug that started it.',
+    link: 'https://github.com/Nan0dev06/check-on',
+    tags: ['python', 'openfda', 'health data'],
+  },
+  {
     name: 'Nudgy',
     desc: 'an agentic group scheduling assistant — finds when a group is free, proposes a time, runs a poll, and books it on everyone\'s calendar.',
     link: 'https://github.com/Nan0dev06/Nudgy_Shared_Calendar_Ai_Agent',
     tags: ['python', 'fastapi', 'llm agent'],
-  },
-  {
-    name: 'terminal portfolio',
-    desc: 'an ssh-able portfolio that runs live inside your terminal — no browser needed.',
-    link: 'https://github.com/Nan0dev06/terminal-portfolio',
-    tags: ['python', 'ssh', 'textual'],
-  },
-  {
-    name: 'pixel portrait',
-    desc: 'turns a photo into a one-color-per-block pixel grid for hand-drawn retro portraits — built for my uncle.',
-    link: 'https://github.com/Nan0dev06/pixel-portrait',
-    tags: ['javascript', 'canvas'],
   },
   {
     name: 'Café Lumière',
