@@ -31,9 +31,16 @@ export default function AsciiSky() {
     const mouse = { x: -9999, y: -9999 }
     let raf
 
+    // the vertical sky gradient only depends on height, so build it on resize
+    // instead of re-allocating one every single frame
+    let sky = null
     const resize = () => {
       canvas.width = canvas.offsetWidth
       canvas.height = canvas.offsetHeight
+      sky = ctx.createLinearGradient(0, 0, 0, canvas.height)
+      sky.addColorStop(0, '#2e63d8')
+      sky.addColorStop(0.6, '#4a8de6')
+      sky.addColorStop(1, '#7ab6f0')
     }
     resize()
     window.addEventListener('resize', resize)
@@ -47,14 +54,20 @@ export default function AsciiSky() {
     window.addEventListener('pointermove', onMove)
     window.addEventListener('pointerleave', onLeave)
 
+    // Redrawing the grid means thousands of fillText calls a frame, so cap it
+    // at ~30fps — the clouds drift slowly enough that the halved rate is not
+    // visible, and it roughly halves the cost of the whole desktop background.
+    const FRAME_MS = 1000 / 30
+    let last = 0
+
     const draw = (now) => {
+      raf = requestAnimationFrame(draw)
+      if (now - last < FRAME_MS) return
+      last = now
+
       const t = now * 0.0012
       const W = canvas.width, H = canvas.height
-      const g = ctx.createLinearGradient(0, 0, 0, H)
-      g.addColorStop(0, '#2e63d8')
-      g.addColorStop(0.6, '#4a8de6')
-      g.addColorStop(1, '#7ab6f0')
-      ctx.fillStyle = g
+      ctx.fillStyle = sky
       ctx.fillRect(0, 0, W, H)
 
       ctx.font = `bold ${CELL}px "Cascadia Code", Consolas, monospace`
@@ -83,7 +96,6 @@ export default function AsciiSky() {
           ctx.fillText(ch, x, y)
         }
       }
-      raf = requestAnimationFrame(draw)
     }
     raf = requestAnimationFrame(draw)
 

@@ -24,9 +24,12 @@ export default function App() {
           starts opening, not while it's still closed on the mat */}
       <div className={`enter-bg ${phase !== 'closed' ? 'show' : ''}`} />
       <Canvas
-        dpr={[1, 2]}
+        dpr={[1, 1.75]}
         camera={{ position: [0, 4.9, 0.6], fov: 40 }}
-        gl={{ alpha: true }}
+        gl={{ alpha: true, powerPreference: 'high-performance' }}
+        /* once the OS is up it covers the canvas completely (.page is opaque),
+           so keeping the 3D loop running just burns frames behind it */
+        frameloop={phase === 'entered' ? 'never' : 'always'}
         onCreated={(state) => {
           if (import.meta.env.DEV) window.__r3f = state // dev-only debug handle
         }}

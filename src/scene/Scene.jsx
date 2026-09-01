@@ -62,7 +62,9 @@ export default function Scene() {
       <Laptop />
       <Props />
 
-      <ContactShadows position={[0, 0.001, 0]} opacity={0.5} scale={14} blur={2.6} far={4} />
+      {/* nothing on the mat moves, so bake the shadow once instead of
+          re-rendering the shadow pass every frame */}
+      <ContactShadows position={[0, 0.001, 0]} opacity={0.5} scale={14} blur={2.6} far={4} frames={1} resolution={512} />
     </group>
   )
 }

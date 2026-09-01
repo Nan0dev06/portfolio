@@ -389,6 +389,12 @@
 .project-head a { color: var(--blue); font-size: 0.78rem; text-decoration: none; }
 .tags { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
 .tags span { font-size: 0.66rem; background: var(--blue); color: #fff; padding: 2px 8px; border-radius: 99px; }
+.projects-more {
+  display: block; text-align: center;
+  border: 1px dashed var(--blue); border-radius: 10px; padding: 10px;
+  color: var(--blue); font-size: 0.78rem; text-decoration: none;
+}
+.projects-more:hover { background: var(--blue); color: #fff; border-style: solid; }
 
 /* ═══ TERMINAL (nanosh + the terminal-portfolio TUI) ══════════════════════ */
 .term {

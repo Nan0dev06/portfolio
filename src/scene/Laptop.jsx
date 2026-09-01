@@ -22,7 +22,7 @@ const STICKERS = [
 ]
 
 function Sticker({ n, x, y, s, r, i }) {
-  const url = `/stickers/sticker-${String(n).padStart(2, '0')}.png`
+  const url = `/stickers/sticker-${String(n).padStart(2, '0')}.webp`
   const texture = useTexture(url)
   const aspect = texture.image ? texture.image.width / texture.image.height : 1
   return (

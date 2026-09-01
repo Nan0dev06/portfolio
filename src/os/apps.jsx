@@ -21,6 +21,10 @@ export function Projects() {
           </div>
         </div>
       ))}
+
+      <a className="projects-more" href={profile.github} target="_blank" rel="noreferrer">
+        check the rest on my github ↗
+      </a>
     </div>
   )
 }
