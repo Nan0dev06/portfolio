@@ -6,6 +6,14 @@ you can actually click around in.
 
 **Live:** _(add your deployed URL here once it's live)_
 
+|  |  |
+|---|---|
+| ![Desk scene](screenshots/01_desk_scene.png) The 3D flat-lay you land on — click the laptop to dive in | ![Login](screenshots/02_login.png) A Y2K-cyber login sequence, no typing required |
+| ![nanoOS desktop](screenshots/03_desktop.png) The nanoOS desktop — draggable icons, dock, and an interactive ASCII-cloud wallpaper | ![Terminal](screenshots/04_terminal.png) The terminal app, a browser re-creation of the real TUI portfolio |
+
+![Paint](screenshots/05_paint.png)
+*A Y2K MS-Paint-style app with a real drawable canvas, sitting right on the desktop.*
+
 ## the idea
 
 Instead of a normal scrolling one-pager, the site is a desktop metaphor:
