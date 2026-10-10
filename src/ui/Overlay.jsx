@@ -8,6 +8,7 @@ const OS = lazy(() => import('../os/OS.jsx'))
 
 export default function Overlay() {
   const phase = useStore((s) => s.phase)
+  const skip = useStore((s) => s.skip)
 
   // warm the OS chunk while the browser is idle, so clicking the laptop never
   // waits on a network round-trip mid-transition
@@ -21,6 +22,11 @@ export default function Overlay() {
   return (
     <>
       {phase === 'closed' && <div className="hint">click the laptop</div>}
+      {phase === 'closed' && (
+        <button className="skip-intro" onClick={skip}>
+          skip intro
+        </button>
+      )}
       <div className={`page ${phase === 'entered' ? 'show' : ''}`}>
         {phase === 'entered' && (
           <Suspense fallback={null}>

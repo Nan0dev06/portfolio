@@ -1,6 +1,6 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { RoundedBox, useTexture } from '@react-three/drei'
+import { Html, RoundedBox, useTexture } from '@react-three/drei'
 import { MathUtils } from 'three'
 import { useStore } from '../store'
 
@@ -75,10 +75,53 @@ function Keys() {
   )
 }
 
+// pointing hand (Lucide "pointer", 24x24) — fingertip sits at roughly (8, 2)
+const HAND = [
+  'M22 14a8 8 0 0 1-8 8',
+  'M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2',
+  'M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1',
+  'M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10',
+  'M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15',
+]
+
+// "tap here" hint pinned to the laptop: <Html> re-projects it every frame, so
+// it stays on the lid through resizes. Never clickable — clicks fall through
+// to the canvas (and so to the laptop) underneath.
+function TapHint() {
+  return (
+    <Html position={[0, 0.2, 0.05]} zIndexRange={[1, 0]} style={{ pointerEvents: 'none' }}>
+      <div className="tap-hint" aria-hidden="true">
+        <span className="tap-ring" />
+        <svg className="tap-hand" viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
+          {/* dark underlay so the white outline reads over the stickers */}
+          <g stroke="#0b0b0d" strokeWidth="4.5">
+            {HAND.map((d) => (
+              <path key={d} d={d} />
+            ))}
+          </g>
+          <g stroke="#fff" strokeWidth="2">
+            {HAND.map((d) => (
+              <path key={d} d={d} />
+            ))}
+          </g>
+        </svg>
+      </div>
+    </Html>
+  )
+}
+
 export default function Laptop() {
   const lid = useRef()
   const phase = useStore((s) => s.phase)
   const open = useStore((s) => s.open)
+  // the hint waits for the scene to sit idle for a moment; once the laptop is
+  // clicked the phase never returns to 'closed', so it's gone for good
+  const [idle, setIdle] = useState(false)
+
+  useEffect(() => {
+    const t = setTimeout(() => setIdle(true), 1500)
+    return () => clearTimeout(t)
+  }, [])
 
   useFrame((_, dt) => {
     if (!lid.current) return
@@ -95,6 +138,8 @@ export default function Laptop() {
       onPointerOver={() => (document.body.style.cursor = 'pointer')}
       onPointerOut={() => (document.body.style.cursor = 'auto')}
     >
+      {idle && phase === 'closed' && <TapHint />}
+
       {/* base */}
       <RoundedBox args={[2.2, 0.09, 1.5]} radius={0.03} smoothness={4} position={[0, 0.06, 0]} castShadow>
         <meshStandardMaterial color="#c9ccd1" metalness={0.6} roughness={0.35} />

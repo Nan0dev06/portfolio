@@ -8,11 +8,13 @@ import Login from './Login.jsx'
 import Paint from './Paint.jsx'
 import Terminal from './Terminal.jsx'
 import { Projects, Contact } from './apps.jsx'
+import { useStore } from '../store'
 import './os.css'
 
 export default function OS() {
   // 'power' → brief black screen (laptop turning on) → 'login' → 'desktop'
-  const [phase, setPhase] = useState('power')
+  // ("skip intro" on the desk scene jumps past the login too)
+  const [phase, setPhase] = useState(() => (useStore.getState().skipped ? 'desktop' : 'power'))
 
   useEffect(() => {
     if (phase !== 'power') return

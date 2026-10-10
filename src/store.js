@@ -8,4 +8,7 @@ export const useStore = create((set) => ({
   phase: window.location.hash === '#os' ? 'entered' : 'closed',
   open: () => set((s) => (s.phase === 'closed' ? { phase: 'opening' } : {})),
   setEntered: () => set((s) => (s.phase === 'opening' ? { phase: 'entered' } : {})),
+  // "skip intro" link: no lid-open dive and no login, straight to the desktop
+  skipped: false,
+  skip: () => set({ phase: 'entered', skipped: true }),
 }))
