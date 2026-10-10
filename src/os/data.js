@@ -11,6 +11,9 @@ export const profile = {
     'outside of that — Java Swing desktop apps, an SSH-native terminal portfolio, and whatever new idea is currently living rent-free in my head.',
   ],
   email: 'nano.06dev@gmail.com',
+  // TODO: drop resume.pdf into /public, then set this to '/resume.pdf' — until
+  // then the menu bar shows a "resume · soon" placeholder instead of a download
+  resume: null,
   github: 'https://github.com/Nan0dev06',
 }
 

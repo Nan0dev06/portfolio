@@ -173,6 +173,18 @@
 .menubar-left, .menubar-right { display: flex; align-items: center; gap: 14px; }
 .menubar-logo { color: var(--cyan); }
 .menubar-item { color: var(--blue-soft); text-transform: uppercase; }
+.menubar-contact { color: inherit; text-decoration: none; }
+.menubar-contact:hover { color: var(--cyan); }
+/* the link box is the hit target; the pill it paints is the inner span */
+.menubar-resume { display: inline-flex; align-items: center; color: #fff; text-decoration: none; }
+.menubar-resume span {
+  padding: 1px 10px;
+  border-radius: 99px;
+  background: var(--blue);
+  border: 1px solid var(--cyan);
+}
+a.menubar-resume:hover span { background: var(--cyan); color: var(--ink); }
+.menubar-resume.soon span { background: none; border-style: dashed; opacity: 0.65; }
 
 /* ═══ DESKTOP ICONS ═══════════════════════════════════════════════════════ */
 /* This layer spans the whole desktop so icons can sit anywhere, but it must
@@ -563,6 +575,13 @@
   min-height: 44px;
 }
 .desktop.mobile .projects-more { display: flex; }
+/* the menu bar doubles as the sticky contact / resume bar */
+.desktop.mobile .menubar { height: 44px; }
+.desktop.mobile .menubar-clock { display: none; }
+.desktop.mobile .menubar-contact,
+.desktop.mobile .menubar-resume { display: inline-flex; align-items: center; height: 44px; }
+.desktop.mobile .menubar-resume span { padding: 5px 12px; }
+.desktop.mobile .window.maximized { top: 52px; }
 .desktop.mobile .window-titlebar { height: 44px; }
 .desktop.mobile .win-btn { width: 44px; height: 44px; }
 .desktop.mobile .win-controls { gap: 0; }
