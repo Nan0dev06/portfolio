@@ -9,8 +9,11 @@ import Paint from './Paint.jsx'
 import Terminal from './Terminal.jsx'
 import { Projects, Contact } from './apps.jsx'
 import { useStore } from '../store'
+import { useOS } from './osStore'
 import { isMobile } from './useViewport'
 import './os.css'
+
+const PROJECTS_W = 920
 
 export default function OS() {
   // 'power' → brief black screen (laptop turning on) → 'login' → 'desktop'
@@ -21,8 +24,18 @@ export default function OS() {
 
   useEffect(() => {
     if (phase !== 'power') return
-    const t = setTimeout(() => setPhase('login'), 650)
+    const t = setTimeout(() => setPhase('login'), 300)
     return () => clearTimeout(t)
+  }, [phase])
+
+  // the desktop always comes up with projects already open — it's the one
+  // thing every visitor is here for. Guarded so a re-run can't toggle it shut.
+  useEffect(() => {
+    if (phase !== 'desktop') return
+    const { windows, moveWindow, toggleWindow } = useOS.getState()
+    if (windows.projects.open) return
+    moveWindow('projects', Math.max(8, (window.innerWidth - PROJECTS_W) / 2), 40)
+    toggleWindow('projects')
   }, [phase])
 
   if (phase === 'power') return <div className="power-on" />
@@ -41,7 +54,8 @@ export default function OS() {
       <Window id="paint" title="paint.exe" width={520}>
         <Paint />
       </Window>
-      <Window id="projects" title="projects" width={520}>
+      {/* large on desktop; fills the screen on phones */}
+      <Window id="projects" title="projects" width={PROJECTS_W} height={660} defaultMaximized={isMobile}>
         <Projects />
       </Window>
       <Window id="contact" title="contact">

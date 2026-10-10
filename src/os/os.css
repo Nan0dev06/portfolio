@@ -29,7 +29,7 @@
   position: absolute;
   inset: 0;
   background: #000;
-  animation: power-flick 0.65s ease-out;
+  animation: power-flick 0.3s ease-out;
 }
 .power-on::after {
   content: "";
@@ -41,7 +41,7 @@
   border-radius: 50%;
   background: #39ff88;
   box-shadow: 0 0 10px #39ff88;
-  animation: power-led 0.65s ease-out;
+  animation: power-led 0.3s ease-out;
 }
 @keyframes power-flick {
   0% { background: #000; }
@@ -57,7 +57,7 @@
   align-items: center;
   justify-content: center;
   background: #05061a;
-  transition: opacity 0.7s ease, filter 0.7s ease;
+  transition: opacity 0.45s ease, filter 0.45s ease;
 }
 .login.entering { opacity: 0; filter: brightness(2.2) blur(6px); }
 

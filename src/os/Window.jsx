@@ -24,6 +24,7 @@ export default function Window({
   minWidth = 260,
   minHeight = 160,
   bare = false,
+  defaultMaximized = false,
   children,
 }) {
   const win = useOS((s) => s.windows[id])
@@ -42,7 +43,7 @@ export default function Window({
   const hideTimer = useRef(null)
   // 'close' | 'minimize' | null — which exit animation (if any) is playing
   const [hiding, setHiding] = useState(null)
-  const [maximized, setMaximized] = useState(false)
+  const [maximized, setMaximized] = useState(defaultMaximized)
 
   useEffect(() => () => clearTimeout(hideTimer.current), [])
 
