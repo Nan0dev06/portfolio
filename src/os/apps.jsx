@@ -6,12 +6,17 @@ export function Projects() {
       <p className="projects-tagline">{tagline}</p>
 
       <div className="project-grid">
-        {projects.map((p) => (
+        {projects.map((p, i) => (
           <article key={p.name} className="project-card">
             {p.image ? (
-              <img className="project-shot" src={p.image} alt={`${p.name} screenshot`} />
+              <img
+                className="project-shot"
+                src={p.image}
+                alt={`${p.name} screenshot`}
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
             ) : (
-              // TODO: placeholder tile — goes away once the project has an `image` in data.js
+              // placeholder tile for a project with no `image` in data.js
               <div className="project-shot placeholder" aria-hidden="true">
                 {p.name}
               </div>

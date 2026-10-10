@@ -36,35 +36,38 @@ export const tagline = "I build software that solves real people's problems."
 //   role   — what i actually did (keep this honest)
 //   result — one concrete outcome
 //   image  — screenshot in /public/projects/ (null → placeholder tile)
+// Facts and screenshots here are taken from each repo's README — keep the two
+// in sync, a recruiter can click straight through from the card to the repo.
 export const projects = [
   {
     name: 'Nudgy',
-    pitch: "for groups that can never agree on a time — an agentic scheduling assistant that finds when everyone is free, runs a poll, and books it on every calendar.",
+    pitch: "for friend groups that can never agree on a time — an AI agent that reads everyone's live calendars, proposes a time and a place, polls the group, and books it.",
     role: 'designed the product and architecture; built with an AI coding agent.',
     tags: ['fastapi', 'groq · llama 3.3 70b', 'google calendar api', 'react'],
     result: 'gold, Kanz AI hackathon',
-    demo: null, // TODO: live demo URL, if there is one
+    demo: 'https://nudgy.onrender.com',
     github: 'https://github.com/Nan0dev06/Nudgy_Shared_Calendar_Ai_Agent',
-    image: null, // TODO: add public/projects/nudgy.png, then set this to '/projects/nudgy.png'
+    image: '/projects/nudgy.webp',
   },
   {
     name: 'Check On',
-    pitch: 'for elderly people on several medications — detects prescribing cascades, where a new symptom is really a side effect of an earlier drug, before the next prescription is written.',
+    pitch: 'for older adults and their family caregivers — links a new symptom back to the medicine that started it, before it gets treated with yet another drug.',
     role: 'designed the product and architecture; built with an AI coding agent.',
-    tags: ['fastapi', 'postgres', 'react', 'openfda faers', 'scikit-learn'],
-    result: null, // TODO: one concrete result (a number, a test outcome, a placement)
+    // no postgres here: the repo's store is in-memory (see its README)
+    tags: ['fastapi', 'react', 'openfda faers', 'scikit-learn'],
+    result: 'PRR 3.5 across 8,545 FDA reports', // the amlodipine → swollen-ankles cascade in the README
     demo: 'https://check-on.onrender.com',
     github: 'https://github.com/Nan0dev06/check-on',
-    image: null, // TODO: add public/projects/check-on.png, then set this to '/projects/check-on.png'
+    image: '/projects/check-on.webp',
   },
   {
     name: 'ClearHead',
-    pitch: 'for people overloaded by vague goals — an AI cognitive-load manager that turns them into milestone-based plans and tracks real-time distraction during work sessions.',
-    role: 'led the frontend and product side.',
-    tags: ['react', 'llm', 'chrome extension'],
+    pitch: 'for students and professionals hitting cognitive overload — turns a chaotic brain dump into a guided focus path, one small step at a time.',
+    role: 'led frontend, ui/ux and product direction in a 2-person team.',
+    tags: ['react', 'fastapi', 'qwen2.5-72b', 'chrome extension'],
     result: 'finalist, USAII Global AI Hackathon 2026',
-    demo: null, // TODO: live demo URL, if there is one
+    demo: null, // no hosted demo — the README only has local setup
     github: 'https://github.com/Nan0dev06/ClearHead',
-    image: null, // TODO: add public/projects/clearhead.png, then set this to '/projects/clearhead.png'
+    image: '/projects/clearhead.webp',
   },
 ]
