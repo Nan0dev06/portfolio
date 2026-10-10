@@ -42,7 +42,8 @@ Instead of a normal scrolling one-pager, the site is a desktop metaphor:
 
 Phones and touch-only devices (below 900px) skip the 3D scene and the login
 entirely and land straight on the desktop with projects open — the 3D code,
-models and videos are never downloaded there.
+models and videos are never downloaded there (the ASCII-cloud wallpaper still
+runs).
 
 It's also responsive: below ~900px the scattered desktop icons fall back to
 a grid, windows and icons clamp themselves onto the visible screen, and the

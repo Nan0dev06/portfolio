@@ -43,8 +43,7 @@ export default function OS() {
 
   return (
     <div className={`desktop ${isMobile ? 'mobile' : ''}`}>
-      {/* phones get a static sky (see .desktop.mobile) instead of the canvas loop */}
-      {!isMobile && <AsciiSky />}
+      <AsciiSky />
       <MenuBar />
       <DesktopIcons />
 
