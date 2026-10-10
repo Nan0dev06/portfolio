@@ -55,7 +55,7 @@ export default function OS() {
         <Paint />
       </Window>
       {/* large on desktop; fills the screen on phones */}
-      <Window id="projects" title="projects" width={PROJECTS_W} height={660} defaultMaximized={isMobile}>
+      <Window id="projects" title="projects" width={PROJECTS_W} height={672} defaultMaximized={isMobile}>
         <Projects />
       </Window>
       <Window id="contact" title="contact">
