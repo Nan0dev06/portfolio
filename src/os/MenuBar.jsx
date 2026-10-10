@@ -20,19 +20,10 @@ export default function MenuBar() {
         <span className="menubar-item">portfolio</span>
       </div>
       <div className="menubar-right">
-        {/* contact + resume stay on screen whatever windows are open */}
+        {/* contact stays on screen whatever windows are open */}
         <a className="menubar-contact" href={`mailto:${profile.email}`}>
           {profile.email}
         </a>
-        {profile.resume ? (
-          <a className="menubar-resume" href={profile.resume} download="Nour_Al_Shami_Resume.pdf">
-            <span>resume ↓</span>
-          </a>
-        ) : (
-          <span className="menubar-resume soon">
-            <span>resume · soon</span>
-          </span>
-        )}
         <span className="menubar-clock">{date}</span>
         <span className="menubar-clock">{time}</span>
       </div>

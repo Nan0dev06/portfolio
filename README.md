@@ -36,6 +36,7 @@ Instead of a normal scrolling one-pager, the site is a desktop metaphor:
    - **paint** — a Y2K MS-Paint-style app with a real drawable canvas
    - **projects** — cards for real GitHub projects
    - **contact** — email / GitHub
+   - **resume** — a document viewer with a page preview and a pdf download
 
    Plus GitHub and LinkedIn desktop shortcuts that open straight out to the
    real thing.
@@ -87,11 +88,11 @@ src/
     osStore.js         window manager state (open/close/minimize/z-order/drag/resize)
     OS.jsx             power-on → Login → desktop
     Login.jsx          animated login screen
-    MenuBar.jsx        top bar (nanoOS label, contact email, resume, clock)
+    MenuBar.jsx        top bar (nanoOS label, contact email, clock)
     AsciiSky.jsx       the interactive ASCII-cloud wallpaper
     Window.jsx         glass window chrome (star buttons, drag, resize, maximize)
     Dock.jsx / DesktopIcons.jsx   the two places apps launch from
-    apps.jsx           Projects / Contact
+    apps.jsx           Projects / Contact / Resume
     Terminal.jsx       nanosh + the terminal-portfolio TUI re-creation
     portrait.txt       the ASCII portrait the TUI renders
     Paint.jsx          drawable-canvas paint app

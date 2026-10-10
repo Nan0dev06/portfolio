@@ -11,9 +11,11 @@ export const profile = {
     'outside of that — Java Swing desktop apps, an SSH-native terminal portfolio, and whatever new idea is currently living rent-free in my head.',
   ],
   email: 'nano.06dev@gmail.com',
-  // public/resume.pdf — exported from the .docx; re-export over it to update.
-  // (set to null to swap the menu bar button for a "resume · soon" placeholder)
+  // the resume app: the pdf is what downloads, the webp is page 1 of that same
+  // pdf rendered as an image for the in-window preview (phones can't embed a
+  // pdf). Updating the resume means replacing BOTH files in /public.
   resume: '/resume.pdf',
+  resumePreview: '/resume.webp',
   github: 'https://github.com/Nan0dev06',
 }
 

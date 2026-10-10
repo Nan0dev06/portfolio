@@ -55,6 +55,23 @@ export function Projects() {
   )
 }
 
+// the resume as a little document viewer: a preview of the page plus a download
+export function Resume() {
+  return (
+    <div className="app-resume">
+      <div className="resume-bar">
+        <span>{profile.fullName} · 1 page</span>
+        <a className="btn" href={profile.resume} download="Nour_Al_Shami_Resume.pdf">
+          download pdf ↓
+        </a>
+      </div>
+      <div className="resume-scroll">
+        <img className="resume-page" src={profile.resumePreview} alt={`${profile.fullName}'s resume`} />
+      </div>
+    </div>
+  )
+}
+
 export function Contact() {
   return (
     <div className="app-contact">

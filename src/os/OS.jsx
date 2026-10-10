@@ -7,7 +7,7 @@ import AsciiSky from './AsciiSky.jsx'
 import Login from './Login.jsx'
 import Paint from './Paint.jsx'
 import Terminal from './Terminal.jsx'
-import { Projects, Contact } from './apps.jsx'
+import { Projects, Contact, Resume } from './apps.jsx'
 import { useStore } from '../store'
 import { useOS } from './osStore'
 import { isMobile } from './useViewport'
@@ -59,6 +59,9 @@ export default function OS() {
       </Window>
       <Window id="contact" title="contact">
         <Contact />
+      </Window>
+      <Window id="resume" title="resume.pdf" width={640} height={760} bare defaultMaximized={isMobile}>
+        <Resume />
       </Window>
 
       <Dock />

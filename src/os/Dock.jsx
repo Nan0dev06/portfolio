@@ -9,6 +9,7 @@ const APPS = [
   { id: 'paint', label: 'paint', kind: 'paint' },
   { id: 'projects', label: 'projects', kind: 'folder' },
   { id: 'contact', label: 'contact', kind: 'envelope' },
+  { id: 'resume', label: 'resume', kind: 'file' },
   { id: 'github', label: 'github', kind: 'github' },
   { id: 'linkedin', label: 'linkedin', kind: 'linkedin' },
 ]

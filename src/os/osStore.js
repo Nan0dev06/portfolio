@@ -6,6 +6,7 @@ const initialWindows = {
   paint: { open: false, minimized: false, x: 120, y: 90, z: 1 },
   projects: { open: false, minimized: false, x: 220, y: 130, z: 1 },
   contact: { open: false, minimized: false, x: 260, y: 170, z: 1 },
+  resume: { open: false, minimized: false, x: 320, y: 44, z: 1 },
 };
 
 // desktop icons — kind picks the shared glossy glyph; `link` opens a URL
@@ -15,6 +16,7 @@ const iconDefs = {
   paint: { label: "paint", kind: "paint" },
   projects: { label: "projects", kind: "folder" },
   contact: { label: "contact", kind: "envelope" },
+  resume: { label: "resume", kind: "file" },
   github: {
     label: "github",
     kind: "github",
@@ -33,6 +35,7 @@ const scatterPos = {
   paint: { x: 400, y: 220 },
   projects: { x: 250, y: 80 },
   contact: { x: 470, y: 150 },
+  resume: { x: 170, y: 250 },
   github: { x: 590, y: 320 },
   linkedin: { x: 760, y: 300 },
 };
