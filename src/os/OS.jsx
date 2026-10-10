@@ -13,7 +13,7 @@ import { useOS } from './osStore'
 import { isMobile } from './useViewport'
 import './os.css'
 
-const PROJECTS_W = 920
+const PROJECTS_W = 1160 // four cards side by side
 
 export default function OS() {
   // 'power' → brief black screen (laptop turning on) → 'login' → 'desktop'

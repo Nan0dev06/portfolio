@@ -70,4 +70,14 @@ export const projects = [
     github: 'https://github.com/Nan0dev06/ClearHead',
     image: '/projects/clearhead.webp',
   },
+  {
+    name: 'Café Lumière',
+    pitch: 'for a small café owner — a desktop app to take orders, track ingredient stock, and review daily revenue.',
+    role: 'designed the class hierarchy and built the central controller and revenue reporting, in a team of 3.',
+    tags: ['java', 'swing', 'xchart'],
+    result: null, // course project (OOP, USAL) — no headline result to claim
+    demo: null, // desktop app: run it from the repo
+    github: 'https://github.com/Nan0dev06/Coffee_Shop_Managment_System',
+    image: '/projects/cafe-lumiere.webp',
+  },
 ]
