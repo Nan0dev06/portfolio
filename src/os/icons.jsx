@@ -65,21 +65,6 @@ export function Envelope() {
   )
 }
 
-export function Paint() {
-  return (
-    <svg viewBox="0 0 64 64" className="ic3d">
-      <Defs id="pt" from="#ffffff" mid="#e6ecff" to="#b9c7ff" />
-      <Shadow />
-      <path d="M32 8a24 22 0 1 0 6 43c4-1 2-6 5-8s7 1 9-3A24 22 0 0 0 32 8z" fill={`url(#pt-body)`} stroke="#2536d6" strokeWidth="1.2" />
-      <circle cx="22" cy="26" r="4" fill="#ff3ea5" />
-      <circle cx="34" cy="20" r="4" fill="#00e5ff" />
-      <circle cx="44" cy="30" r="4" fill="#39ff88" />
-      <circle cx="26" cy="40" r="4" fill="#2530ff" />
-      <ellipse cx="26" cy="20" rx="12" ry="6" fill={`url(#pt-shine)`} />
-    </svg>
-  )
-}
-
 export function TerminalIcon() {
   return (
     <svg viewBox="0 0 64 64" className="ic3d">
@@ -129,7 +114,6 @@ export function Linkedin() {
 
 export const ICONS = {
   terminal: TerminalIcon,
-  paint: Paint,
   folder: Folder,
   file: FileDoc,
   envelope: Envelope,

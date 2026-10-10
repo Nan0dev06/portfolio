@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect } from 'react'
 import { useStore } from '../store'
 
-// The OS is a whole second app (windows, terminal, paint, ascii sky) and none
+// The OS is a whole second app (windows, terminal, ascii sky) and none
 // of it is needed until the laptop opens — split it out so the first load only
 // ships the 3D intro.
 const OS = lazy(() => import('../os/OS.jsx'))

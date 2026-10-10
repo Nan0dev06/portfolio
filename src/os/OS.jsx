@@ -5,7 +5,6 @@ import Window from './Window.jsx'
 import DesktopIcons from './DesktopIcons.jsx'
 import AsciiSky from './AsciiSky.jsx'
 import Login from './Login.jsx'
-import Paint from './Paint.jsx'
 import Terminal from './Terminal.jsx'
 import { Projects, Contact, Resume } from './apps.jsx'
 import { useStore } from '../store'
@@ -49,9 +48,6 @@ export default function OS() {
 
       <Window id="terminal" title="terminal — nanosh" width={760} height={520} bare>
         <Terminal />
-      </Window>
-      <Window id="paint" title="paint.exe" width={520}>
-        <Paint />
       </Window>
       {/* large on desktop; fills the screen on phones */}
       <Window id="projects" title="projects" width={PROJECTS_W} height={672} defaultMaximized={isMobile}>

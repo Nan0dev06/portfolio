@@ -6,7 +6,6 @@ import { ICONS } from './icons.jsx'
 // icons in osStore, so the dock and the desktop can't drift apart.
 const APPS = [
   { id: 'terminal', label: 'terminal', kind: 'terminal' },
-  { id: 'paint', label: 'paint', kind: 'paint' },
   { id: 'projects', label: 'projects', kind: 'folder' },
   { id: 'contact', label: 'contact', kind: 'envelope' },
   { id: 'resume', label: 'resume', kind: 'file' },

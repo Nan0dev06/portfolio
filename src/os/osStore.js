@@ -3,7 +3,6 @@ import { create } from "zustand";
 // window manager state
 const initialWindows = {
   terminal: { open: false, minimized: false, x: 120, y: 70, z: 1 },
-  paint: { open: false, minimized: false, x: 120, y: 90, z: 1 },
   projects: { open: false, minimized: false, x: 220, y: 130, z: 1 },
   contact: { open: false, minimized: false, x: 260, y: 170, z: 1 },
   resume: { open: false, minimized: false, x: 320, y: 44, z: 1 },
@@ -13,7 +12,6 @@ const initialWindows = {
 // instead of a window. x/y come from layoutIcons() below.
 const iconDefs = {
   terminal: { label: "terminal", kind: "terminal" },
-  paint: { label: "paint", kind: "paint" },
   projects: { label: "projects", kind: "folder" },
   contact: { label: "contact", kind: "envelope" },
   resume: { label: "resume", kind: "file" },
@@ -32,7 +30,6 @@ const iconDefs = {
 // scattered layout, designed for a ≥900px-wide desktop (px from top-left)
 const scatterPos = {
   terminal: { x: 70, y: 110 },
-  paint: { x: 400, y: 220 },
   projects: { x: 250, y: 80 },
   contact: { x: 470, y: 150 },
   resume: { x: 170, y: 250 },

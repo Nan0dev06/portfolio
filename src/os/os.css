@@ -20,9 +20,8 @@
   user-select: none;
 }
 
-/* chrome-silver custom cursor everywhere (except drawing/typing surfaces) */
+/* chrome-silver custom cursor everywhere */
 .desktop, .login, .desktop *, .login * { cursor: url("/cursor.png") 6 3, auto; }
-.desktop .paint-canvas { cursor: crosshair; }
 
 /* ═══ POWER-ON (brief black screen before login) ══════════════════════════ */
 .power-on {
@@ -533,40 +532,6 @@
 .tui-footer kbd { font: inherit; font-weight: 700; color: var(--tui-accent); }
 .tui-theme-name { margin-left: auto; opacity: 0.75; }
 
-/* ═══ PAINT APP ═══════════════════════════════════════════════════════════ */
-.paint { margin: -16px; }
-.paint-menu {
-  display: flex; gap: 16px;
-  padding: 5px 12px;
-  font-size: 0.74rem;
-  background: rgba(37, 48, 255, 0.14);
-  border-bottom: 1px solid var(--glass-line);
-}
-.paint-menu span { cursor: default; }
-.paint-menu span:hover { color: var(--blue); }
-.paint-stage { display: flex; gap: 12px; padding: 12px 14px 16px; }
-.paint-tools { display: flex; flex-direction: column; gap: 10px; }
-.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; }
-.swatch { width: 22px; height: 22px; border-radius: 5px; border: 2px solid rgba(10,14,42,0.25); cursor: pointer; }
-.swatch.sel { border-color: var(--cyan); box-shadow: 0 0 0 2px var(--blue); }
-.sizes { display: flex; gap: 5px; }
-.size { width: 26px; height: 26px; display: grid; place-items: center; background: rgba(255,255,255,0.5); border: 1px solid var(--glass-line); border-radius: 6px; cursor: pointer; }
-.size.sel { border-color: var(--cyan); background: var(--blue-soft); }
-.size span { background: var(--ink); border-radius: 50%; display: block; }
-.paint-undo { font-family: inherit; font-size: 0.76rem; background: var(--blue); color: #fff; border: 1px solid var(--cyan); border-radius: 6px; padding: 6px 8px; cursor: pointer; }
-.paint-undo:hover { background: var(--cyan); color: var(--ink); }
-.paint-canvas-wrap { position: relative; flex: 1; }
-.paint-canvas {
-  width: 100%;
-  height: 210px;
-  background: #fff;
-  border: 2px solid var(--glass-line);
-  border-radius: 6px;
-  cursor: crosshair;
-  touch-action: none;
-}
-.paint-hint { position: absolute; bottom: 6px; right: 10px; font-size: 0.68rem; color: var(--blue); opacity: 0.6; pointer-events: none; }
-
 /* ═══ SMALL SCREENS (phones / squeezed windows) ═══════════════════════════ */
 .window { max-width: calc(100vw - 16px); }
 
@@ -616,10 +581,4 @@
   .login-card { margin: 0 14px; padding: 22px 26px; }
   .globe-video { width: 96px; height: 96px; }
   .login-field { min-width: 0; align-self: stretch; }
-
-  /* paint: tools sit in a row above the canvas instead of a side column */
-  .paint-stage { flex-direction: column; }
-  .paint-tools { flex-direction: row; align-items: center; flex-wrap: wrap; }
-  .swatches { grid-template-columns: repeat(4, 1fr); }
-
 }
