@@ -21,8 +21,9 @@ Instead of a normal scrolling one-pager, the site is a desktop metaphor:
 1. **Desk scene** — a top-down 3D flat-lay (laptop, coffee, headphones,
    notebook, a sleeping cat) built with `react-three-fiber`. Click the laptop
    and the lid opens while the camera dives into the screen.
-2. **Login** — a short animated "logging in" sequence (video background +
-   spinning globe avatar + auto-typed password), no real input required.
+2. **Login** — a short (~1.5s) animated "logging in" sequence (video
+   background + spinning globe avatar + auto-typed password), no real input
+   required; click or press Enter to skip it.
 3. **nanoOS** — the actual portfolio: draggable desktop icons, glass windows
    that drag, resize (eight edge/corner handles) and have working
    traffic-light controls (close / minimize / maximize), a dock, an
@@ -38,6 +39,10 @@ Instead of a normal scrolling one-pager, the site is a desktop metaphor:
 
    Plus GitHub and LinkedIn desktop shortcuts that open straight out to the
    real thing.
+
+Phones and touch-only devices (below 900px) skip the 3D scene and the login
+entirely and land straight on the desktop with projects open — the 3D code,
+models and videos are never downloaded there.
 
 It's also responsive: below ~900px the scattered desktop icons fall back to
 a grid, windows and icons clamp themselves onto the visible screen, and the
@@ -72,15 +77,16 @@ npm run preview   # preview the production build
 
 ```
 src/
-  App.jsx            entry: <Canvas> (the 3D desk) + <Overlay/>
+  App.jsx            entry: lazy-loaded 3D intro (desktop only) + <Overlay/>
   store.js            3D intro phase: 'closed' → 'opening' → 'entered'
   scene/               the 3D desk — laptop, mat, props, camera
+                       (Intro.jsx holds the <Canvas>; it's its own chunk)
   ui/Overlay.jsx       the fullscreen page that fades in and mounts the OS
   os/
     osStore.js         window manager state (open/close/minimize/z-order/drag/resize)
     OS.jsx             power-on → Login → desktop
     Login.jsx          animated login screen
-    MenuBar.jsx        top bar (nanoOS label + clock)
+    MenuBar.jsx        top bar (nanoOS label, contact email, resume, clock)
     AsciiSky.jsx       the interactive ASCII-cloud wallpaper
     Window.jsx         glass window chrome (star buttons, drag, resize, maximize)
     Dock.jsx / DesktopIcons.jsx   the two places apps launch from
