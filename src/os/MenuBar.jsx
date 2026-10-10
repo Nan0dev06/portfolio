@@ -25,7 +25,7 @@ export default function MenuBar() {
           {profile.email}
         </a>
         {profile.resume ? (
-          <a className="menubar-resume" href={profile.resume} download>
+          <a className="menubar-resume" href={profile.resume} download="Nour_Al_Shami_Resume.pdf">
             <span>resume ↓</span>
           </a>
         ) : (
