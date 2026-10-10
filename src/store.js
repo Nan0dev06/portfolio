@@ -1,11 +1,13 @@
 import { create } from 'zustand'
+import { isMobile } from './os/useViewport'
 
 // phase: 'closed'  -> laptop shut, waiting for a click
 //        'opening' -> lid rising + camera dollying in
 //        'entered' -> camera arrived, main page revealed
 export const useStore = create((set) => ({
   // dev shortcut: open http://localhost:5173/#os to skip the 3D intro
-  phase: window.location.hash === '#os' ? 'entered' : 'closed',
+  // (mobile has no 3D intro at all, so it starts out already entered)
+  phase: isMobile || window.location.hash === '#os' ? 'entered' : 'closed',
   open: () => set((s) => (s.phase === 'closed' ? { phase: 'opening' } : {})),
   setEntered: () => set((s) => (s.phase === 'opening' ? { phase: 'entered' } : {})),
   // "skip intro" link: no lid-open dive and no login, straight to the desktop

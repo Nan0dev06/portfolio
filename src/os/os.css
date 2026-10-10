@@ -142,6 +142,8 @@
 
 /* ═══ DESKTOP ═════════════════════════════════════════════════════════════ */
 .desktop { background: #2e63d8; }
+/* mobile: no animated ascii-sky canvas, just its gradient as a static backdrop */
+.desktop.mobile { background: linear-gradient(180deg, #2e63d8, #4a8de6 60%, #7ab6f0); }
 .ascii-sky {
   position: absolute;
   inset: 0;

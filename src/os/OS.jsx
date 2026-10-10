@@ -9,12 +9,15 @@ import Paint from './Paint.jsx'
 import Terminal from './Terminal.jsx'
 import { Projects, Contact } from './apps.jsx'
 import { useStore } from '../store'
+import { isMobile } from './useViewport'
 import './os.css'
 
 export default function OS() {
   // 'power' → brief black screen (laptop turning on) → 'login' → 'desktop'
-  // ("skip intro" on the desk scene jumps past the login too)
-  const [phase, setPhase] = useState(() => (useStore.getState().skipped ? 'desktop' : 'power'))
+  // (mobile, and "skip intro" on the desk scene, jump past the login too)
+  const [phase, setPhase] = useState(() =>
+    isMobile || useStore.getState().skipped ? 'desktop' : 'power'
+  )
 
   useEffect(() => {
     if (phase !== 'power') return
@@ -26,8 +29,9 @@ export default function OS() {
   if (phase === 'login') return <Login onDone={() => setPhase('desktop')} />
 
   return (
-    <div className="desktop">
-      <AsciiSky />
+    <div className={`desktop ${isMobile ? 'mobile' : ''}`}>
+      {/* phones get a static sky (see .desktop.mobile) instead of the canvas loop */}
+      {!isMobile && <AsciiSky />}
       <MenuBar />
       <DesktopIcons />
 

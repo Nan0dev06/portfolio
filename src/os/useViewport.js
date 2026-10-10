@@ -13,4 +13,10 @@ export function useViewport() {
   return size
 }
 
-export const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), Math.max(lo, hi))
+// phones and touch-only devices get the short path: no 3D intro, no login,
+// straight to the desktop. Decided once at load — it picks which code is even
+// downloaded, so it doesn't flip on a later resize.
+export const isMobile =
+  window.innerWidth < 900 || window.matchMedia('(hover: none) and (pointer: coarse)').matches
+
+export const clamp =(v, lo, hi) => Math.min(Math.max(v, lo), Math.max(lo, hi))
